@@ -97,6 +97,17 @@ sap.ui.define([
             });
             this._oSmartTable.setModel(oModel);
 
+            // Sin anotaciones UI.LineItem en el servicio CAP, SmartTable
+            // inicializa con todas las columnas ocultas. Las forzamos visibles.
+            this._oSmartTable.attachInitialise(function () {
+                var oInnerTable = this._oSmartTable.getTable();
+                if (oInnerTable) {
+                    oInnerTable.getColumns().forEach(function (oCol) {
+                        oCol.setVisible(true);
+                    });
+                }
+            }.bind(this));
+
             oContainer.addItem(this._oSmartFilterBar);
             oContainer.addItem(this._oSmartTable);
         }
