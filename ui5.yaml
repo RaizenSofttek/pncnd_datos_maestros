@@ -12,7 +12,7 @@ server:
         ignoreCertErrors: false
         backend:
           - path: /odata/v2/raizen
-            destination: PNCND_CAP_DM_srv
+            url: https://raizen-argentina-s-a-u--raizen-pncnd-cap-dm-srv.cfapps.us20.hana.ondemand.com
         ui5:
           path:
             - /resources
