@@ -1,7 +1,3 @@
-.dmSelectorPanel {
-    flex-shrink: 0;
-}
-
 .dmTableArea {
     overflow: auto;
     flex: 1;
