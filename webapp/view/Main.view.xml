@@ -1,0 +1,38 @@
+<mvc:View
+    controllerName="zpncnd.datos.maestros.pncnddatosmaestros.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    height="100%">
+
+    <Page showHeader="false" enableScrolling="false">
+        <content>
+            <HBox height="100%" fitContainer="true">
+
+                <!-- ====== SELECTOR DE TABLA ====== -->
+                <VBox class="dmSelectorPanel">
+                    <Panel headerText="Tablas" class="sapUiNoContentPadding dmSelectorPanelInner">
+                        <List
+                            id="lb_tabla_sel"
+                            mode="SingleSelectMaster"
+                            selectionChange=".onTablaSelChange"
+                            items="{tablas>/tablas}">
+                            <StandardListItem
+                                title="{tablas>descripcion}"
+                                description="{tablas>id_tabla}"
+                                type="Active"/>
+                        </List>
+                    </Panel>
+                </VBox>
+
+                <!-- ====== ÁREA DE TABLA DINÁMICA ====== -->
+                <VBox id="containerTable" fitContainer="true" width="100%" class="dmTableArea">
+                    <!-- SmartFilterBar + SmartTable se generan dinámicamente -->
+                </VBox>
+
+            </HBox>
+        </content>
+    </Page>
+
+</mvc:View>

@@ -1,0 +1,7 @@
+{
+  "xsappname": "zpncnddatosmaestros",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of PNCND Datos Maestros",
+  "scopes": [],
+  "role-templates": []
+}
