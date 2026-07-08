@@ -1,14 +1,8 @@
 .dmSelectorPanel {
-    min-width: 20rem;
-    max-width: 22rem;
-    border-right: 1px solid var(--sapList_BorderColor);
-}
-
-.dmSelectorPanelInner {
-    height: 100%;
+    flex-shrink: 0;
 }
 
 .dmTableArea {
-    padding: 0.5rem 1rem;
     overflow: auto;
+    flex: 1;
 }
