@@ -2,6 +2,7 @@
     controllerName="zpncnd.datos.maestros.pncnddatosmaestros.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     displayBlock="true"
     height="100%">
 
@@ -9,23 +10,33 @@
         <content>
             <VBox height="100%" fitContainer="true">
 
-                <!-- ====== SELECTOR DE TABLA ====== -->
-                <Toolbar class="sapMTBHeader-CTX">
+                <!-- ====== BARRA DE SELECCIÓN ====== -->
+                <Toolbar>
                     <Label text="Tabla:" class="sapUiSmallMarginEnd"/>
-                    <Input
-                        id="inpTablaActual"
-                        value="{tablas>/selectedDesc}"
-                        editable="false"
-                        showValueHelp="true"
-                        valueHelpRequest=".onAbrirSelectorTabla"
-                        placeholder="Seleccionar tabla..."
-                        width="28rem"/>
+                    <Select
+                        id="selTabla"
+                        width="20rem"
+                        forceSelection="false"
+                        items="{
+                            path: '/PNCND_TABLAS_MAESTRAS',
+                            sorter: { path: 'descripcion' }
+                        }">
+                        <core:Item key="{nombre}" text="{descripcion}"/>
+                    </Select>
+                    <ToolbarSpacer width="1rem"/>
+                    <Button
+                        text="GO"
+                        type="Emphasized"
+                        press=".onApplyFilters"/>
+                    <Button
+                        icon="sap-icon://clear-filter"
+                        type="Transparent"
+                        tooltip="Limpiar"
+                        press=".onClearFilters"/>
                 </Toolbar>
 
-                <!-- ====== ÁREA DE TABLA DINÁMICA ====== -->
-                <VBox id="containerTable" fitContainer="true" width="100%">
-                    <!-- SmartFilterBar + SmartTable generados dinámicamente -->
-                </VBox>
+                <!-- ====== CONTENEDOR DE FRAGMENT ====== -->
+                <VBox id="fragmentContainer" fitContainer="true" width="100%"/>
 
             </VBox>
         </content>

@@ -73,8 +73,8 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {
-          "metadataUrlParams": { "sap-language": "EN" },
-          "loadMetadataAsync": true
+          "defaultBindingMode": "OneWay",
+          "useBatch": false
         }
       },
       "i18n": {

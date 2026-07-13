@@ -3,8 +3,8 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/odata/v2/raizen(.*)",
-      "destination": "PNCND_CAP_DM_srv",
+      "source": "odata/v2/raizen",
+      "destination": "api-cap-portal-nc-nd-masterdata",
       "authenticationType": "none",
       "csrfProtection": false
     },
