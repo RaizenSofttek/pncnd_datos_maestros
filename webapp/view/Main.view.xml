@@ -6,9 +6,9 @@
     displayBlock="true"
     height="100%">
 
-    <Page showHeader="false" enableScrolling="true">
+    <Page showHeader="false" enableScrolling="false">
         <content>
-            <VBox width="100%">
+            <VBox width="100%" class="pncndLayout">
 
                 <!-- ====== BARRA DE SELECCIÓN ====== -->
                 <Toolbar>
@@ -36,7 +36,7 @@
                 </Toolbar>
 
                 <!-- ====== CONTENEDOR DE FRAGMENT ====== -->
-                <VBox id="fragmentContainer" width="100%"/>
+                <VBox id="fragmentContainer" width="100%" class="pncndFragArea"/>
 
             </VBox>
         </content>

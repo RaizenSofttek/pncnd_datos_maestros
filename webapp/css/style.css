@@ -1,4 +1,27 @@
-.dmTableArea {
-    overflow: auto;
-    flex: 1;
+/* Columna principal que ocupa el 100% del alto de la Page sin desbordarse */
+.pncndLayout {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Área del fragment: crece para ocupar el espacio que queda debajo del toolbar */
+.pncndFragArea {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* VBox raíz dentro de cada fragment: columna flex que llena el área disponible */
+.pncndFragContent {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Contenedor de la SmartTable: crece, el resto de sus hermanos quedan fijos arriba */
+.pncndTableScroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
