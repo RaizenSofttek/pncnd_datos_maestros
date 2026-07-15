@@ -6,9 +6,9 @@
     displayBlock="true"
     height="100%">
 
-    <Page showHeader="false" enableScrolling="false">
+    <Page showHeader="false" enableScrolling="true">
         <content>
-            <VBox height="100%" fitContainer="true">
+            <VBox width="100%">
 
                 <!-- ====== BARRA DE SELECCIÓN ====== -->
                 <Toolbar>
@@ -36,7 +36,7 @@
                 </Toolbar>
 
                 <!-- ====== CONTENEDOR DE FRAGMENT ====== -->
-                <VBox id="fragmentContainer" fitContainer="true" width="100%"/>
+                <VBox id="fragmentContainer" width="100%"/>
 
             </VBox>
         </content>

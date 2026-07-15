@@ -4,7 +4,7 @@
     xmlns:comp="sap.ui.comp.smarttable"
     xmlns:sfb="sap.ui.comp.smartfilterbar">
 
-    <VBox fitContainer="true" width="100%">
+    <VBox width="100%">
         <sfb:SmartFilterBar
             id="sfbFuncion"
             entitySet="PNCND_APROB_X_FUNCION"
