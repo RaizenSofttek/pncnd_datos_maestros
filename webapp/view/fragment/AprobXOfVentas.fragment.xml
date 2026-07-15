@@ -27,6 +27,14 @@
         <SearchField id="sfSearchOfVentas" width="100%" liveChange=".onSearchOfVentas"
             placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
 
+        <OverflowToolbar design="Transparent">
+            <ToolbarSpacer/>
+            <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaOfVentas"/>
+            <ToolbarSeparator/>
+            <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateOfVentas"/>
+            <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaOfVentas"/>
+        </OverflowToolbar>
+
         <VBox class="pncndTableScroll">
 
             <comp:SmartTable
@@ -39,16 +47,6 @@
                 enableAutoBinding="true"
                 showRowCount="true"
                 header="Aprobadores por Oficina de Ventas">
-
-                <comp:customToolbar>
-                    <OverflowToolbar design="Transparent">
-                        <ToolbarSpacer/>
-                        <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaOfVentas"/>
-                        <ToolbarSeparator/>
-                        <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateOfVentas"/>
-                        <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaOfVentas"/>
-                    </OverflowToolbar>
-                </comp:customToolbar>
 
                 <Table id="_tblOfVentas" fixedLayout="false" mode="MultiSelect"
                        sticky="ColumnHeaders,HeaderToolbar">

@@ -26,6 +26,14 @@
         <SearchField id="sfSearchClientes" width="100%" liveChange=".onSearchClientes"
             placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
 
+        <OverflowToolbar design="Transparent">
+            <ToolbarSpacer/>
+            <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaClientes"/>
+            <ToolbarSeparator/>
+            <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateClientes"/>
+            <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaClientes"/>
+        </OverflowToolbar>
+
         <VBox class="pncndTableScroll">
 
             <comp:SmartTable
@@ -38,16 +46,6 @@
                 enableAutoBinding="true"
                 showRowCount="true"
                 header="Clientes">
-
-                <comp:customToolbar>
-                    <OverflowToolbar design="Transparent">
-                        <ToolbarSpacer/>
-                        <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaClientes"/>
-                        <ToolbarSeparator/>
-                        <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateClientes"/>
-                        <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaClientes"/>
-                    </OverflowToolbar>
-                </comp:customToolbar>
 
                 <Table id="_tblClientes" fixedLayout="false" mode="MultiSelect"
                        sticky="ColumnHeaders,HeaderToolbar">
