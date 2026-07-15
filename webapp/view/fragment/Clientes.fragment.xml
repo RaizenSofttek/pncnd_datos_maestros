@@ -49,7 +49,8 @@
                     </OverflowToolbar>
                 </comp:customToolbar>
 
-                <Table id="_tblClientes" fixedLayout="false" mode="MultiSelect">
+                <Table id="_tblClientes" fixedLayout="false" mode="MultiSelect"
+                       sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="12rem">
                             <customData>

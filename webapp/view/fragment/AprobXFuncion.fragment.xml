@@ -46,7 +46,8 @@
                     </OverflowToolbar>
                 </comp:customToolbar>
 
-                <Table id="_tblFuncion" fixedLayout="false" mode="MultiSelect">
+                <Table id="_tblFuncion" fixedLayout="false" mode="MultiSelect"
+                       sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="15rem">
                             <customData>

@@ -50,7 +50,8 @@
                     </OverflowToolbar>
                 </comp:customToolbar>
 
-                <Table id="_tblOfVentas" fixedLayout="false" mode="MultiSelect">
+                <Table id="_tblOfVentas" fixedLayout="false" mode="MultiSelect"
+                       sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="7rem">
                             <customData>
