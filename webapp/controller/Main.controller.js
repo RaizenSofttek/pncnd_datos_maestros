@@ -1,11 +1,14 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/m/MessageBox",
-    "sap/ui/core/Fragment"
-], function (Controller, MessageToast, MessageBox, Fragment) {
+    "sap/ui/core/Fragment",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_funcion",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_of_ventas",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes"
+], function (Controller, MessageToast, Fragment, AprobFuncion, AprobOfVentas, Clientes) {
     "use strict";
 
+    // Mapa de fragments por entidad
     var mFragmentos = {
         "PNCND_APROB_X_OF_VENTAS": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.AprobXOfVentas",
@@ -16,20 +19,28 @@ sap.ui.define([
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.AprobXFuncion",
             sfbId: "sfbFuncion",
             stId : "stFuncion"
+        },
+        "PNCND_CLIENTES": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Clientes",
+            sfbId: "sfbClientes",
+            stId : "stClientes"
         }
     };
 
     return Controller.extend("zpncnd.datos.maestros.pncnddatosmaestros.controller.Main", {
 
-        _sCurrentEntity: null,
-        _nFragLoad     : 0,
-        _sEditPathFun  : null,
-        _sEditPathOV   : null,
-        _sDlgFunId     : null,
-        _sDlgOVId      : null,
+        // ── Ciclo de vida ────────────────────────────────────────────────────
+        onInit: function () {
+            this._funcion   = new AprobFuncion(this);
+            this._ofventas  = new AprobOfVentas(this);
+            this._clientes  = new Clientes(this);
+            this._activeUtil     = null;
+            this._sCurrentEntity = null;
+            this._nFragLoad      = 0;
+            this._sCurrentFragId = null;
+        },
 
-        // ── SELECTOR Y CARGA DE FRAGMENT ────────────────────────────
-
+        // ── SELECTOR DE TABLA ────────────────────────────────────────────────
         onApplyFilters: function () {
             var oSelect = this.byId("selTabla");
             var sNombre = oSelect.getSelectedKey();
@@ -48,209 +59,172 @@ sap.ui.define([
             this.byId("selTabla").setSelectedKey("");
             this.byId("fragmentContainer").destroyItems();
             this._sCurrentEntity = null;
+            this._sCurrentFragId = null;
         },
 
         _cargarFragmento: function (sEntitySet) {
             if (this._sCurrentEntity === sEntitySet) { return; }
-
             var oContainer = this.byId("fragmentContainer");
             var mCfg       = mFragmentos[sEntitySet];
             var sFragId    = this.createId("frag_" + sEntitySet + "_" + (++this._nFragLoad));
-
             oContainer.destroyItems();
             this._sCurrentEntity = null;
-
             var that = this;
-            Fragment.load({
-                id        : sFragId,
-                name      : mCfg.name,
-                controller: this
-            }).then(function (oFragment) {
-                var aControls = Array.isArray(oFragment) ? oFragment : [oFragment];
-                aControls.forEach(function (oCtrl) { oContainer.addItem(oCtrl); });
-
-                var oSFB = Fragment.byId(sFragId, mCfg.sfbId);
-                var oST  = Fragment.byId(sFragId, mCfg.stId);
-                if (oSFB && oST) { oST.setSmartFilterId(oSFB.getId()); }
-
-                that._sCurrentEntity = sEntitySet;
-            });
+            Fragment.load({ id: sFragId, name: mCfg.name, controller: this })
+                .then(function (oFragment) {
+                    var aControls = Array.isArray(oFragment) ? oFragment : [oFragment];
+                    aControls.forEach(function (oCtrl) { oContainer.addItem(oCtrl); });
+                    var oSFB = Fragment.byId(sFragId, mCfg.sfbId);
+                    var oST  = Fragment.byId(sFragId, mCfg.stId);
+                    if (oSFB && oST) { oST.setSmartFilterId(oSFB.getId()); }
+                    that._sCurrentFragId = sFragId;
+                    that._sCurrentEntity = sEntitySet;
+                });
         },
 
-        // ── APROBADORES POR FUNCIÓN ──────────────────────────────────
-
-        onEditarAprobFuncion: function (oEvent) {
-            var oCtx  = oEvent.getSource().getBindingContext();
-            var oData = oCtx.getObject();
-            this._sEditPathFun = oCtx.getPath();
-
-            var that = this;
-            this._getDialogFuncion().then(function () {
-                var sId = that._sDlgFunId;
-                Fragment.byId(sId, "eFunCodConcepto").setValue(oData.cod_concepto);
-                Fragment.byId(sId, "eFunTipoAprob").setValue(oData.id_tipo_aprob);
-                Fragment.byId(sId, "eFunNivel").setValue(String(oData.nivel));
-                Fragment.byId(sId, "eFunMail").setValue(oData.mail || "");
-                that._oDlgFuncion.open();
-            });
+        // ── Helper compartido: tabla interna del SmartTable activo ───────────
+        _getInnerTable: function (sSmartTableId) {
+            if (!this._sCurrentFragId) { return null; }
+            var oST = Fragment.byId(this._sCurrentFragId, sSmartTableId);
+            return oST ? (oST.getTable ? oST.getTable() : null) : null;
         },
 
-        onConfirmarEditarFuncion: function () {
-            var sMail = Fragment.byId(this._sDlgFunId, "eFunMail").getValue().trim();
-            var that  = this;
-
-            MessageBox.confirm("¿Confirma la Edición del Registro?", {
-                title   : "Confirmar Edición",
-                onClose : function (sAction) {
-                    if (sAction !== MessageBox.Action.OK) { return; }
-                    var oModel = that.getOwnerComponent().getModel();
-                    oModel.update(that._sEditPathFun, { mail: sMail }, {
-                        success: function () {
-                            that._oDlgFuncion.close();
-                            MessageToast.show("Registro actualizado correctamente");
-                            oModel.refresh();
-                        },
-                        error: function (oErr) {
-                            MessageBox.error("Error al actualizar: " + (oErr.message || oErr.statusCode));
-                        }
-                    });
+        // ── Helper compartido: detectar entidad por headers de archivo ───────
+        _detectarEntidad: function (aHeaders) {
+            var sDetectado = null;
+            [this._funcion, this._ofventas, this._clientes].forEach(function (oUtil) {
+                var aEsp = oUtil.getColsCarga().map(function (o) { return o.header; });
+                if (aEsp.length === aHeaders.length &&
+                    aEsp.every(function (h, i) { return h === aHeaders[i]; })) {
+                    sDetectado = oUtil.getNombre();
                 }
             });
+            return sDetectado;
         },
 
-        onCancelarEditarFuncion: function () {
-            this._oDlgFuncion.close();
+        // ── Helper compartido: generar template XLS ──────────────────────────
+        _descargarTemplate: function (sNombreArchivo, aColumnas) {
+            var sXML = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<?mso-application progid="Excel.Sheet"?>',
+                '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"',
+                '  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"',
+                '  xmlns:x="urn:schemas-microsoft-com:office:excel">',
+                '  <Styles>',
+                '    <Style ss:ID="sHeader">',
+                '      <Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="11"/>',
+                '      <Interior ss:Color="#2E75B6" ss:Pattern="Solid"/>',
+                '      <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>',
+                '    </Style>',
+                '    <Style ss:ID="sHint">',
+                '      <Font ss:Italic="1" ss:Color="#595959" ss:Size="9"/>',
+                '      <Interior ss:Color="#D6E4F0" ss:Pattern="Solid"/>',
+                '      <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>',
+                '    </Style>',
+                '    <Style ss:ID="sData">',
+                '      <Borders>',
+                '        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#BDD7EE"/>',
+                '        <Border ss:Position="Right"  ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#BDD7EE"/>',
+                '        <Border ss:Position="Left"   ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#BDD7EE"/>',
+                '        <Border ss:Position="Top"    ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#BDD7EE"/>',
+                '      </Borders>',
+                '    </Style>',
+                '  </Styles>',
+                '  <Worksheet ss:Name="Template">',
+                '    <Table ss:DefaultRowHeight="18">'
+            ].join('\n');
+
+            sXML += '\n      <Row ss:Height="22">';
+            aColumnas.forEach(function (oCol) {
+                sXML += '\n        <Cell ss:StyleID="sHeader"><Data ss:Type="String">' + oCol.label + '</Data></Cell>';
+            });
+            sXML += '\n      </Row>';
+
+            sXML += '\n      <Row ss:Height="30">';
+            aColumnas.forEach(function (oCol) {
+                sXML += '\n        <Cell ss:StyleID="sHint"><Data ss:Type="String">' + oCol.hint + '</Data></Cell>';
+            });
+            sXML += '\n      </Row>';
+
+            for (var i = 0; i < 10; i++) {
+                sXML += '\n      <Row>';
+                aColumnas.forEach(function () {
+                    sXML += '\n        <Cell ss:StyleID="sData"><Data ss:Type="String"></Data></Cell>';
+                });
+                sXML += '\n      </Row>';
+            }
+
+            sXML += '\n    </Table>\n  </Worksheet>\n</Workbook>';
+
+            var oBlob  = new Blob([sXML], { type: 'application/vnd.ms-excel;charset=utf-8' });
+            var sURL   = URL.createObjectURL(oBlob);
+            var oLink  = document.createElement('a');
+            oLink.href     = sURL;
+            oLink.download = sNombreArchivo + '_Template.xls';
+            document.body.appendChild(oLink);
+            oLink.click();
+            document.body.removeChild(oLink);
+            URL.revokeObjectURL(sURL);
         },
 
-        onEliminarAprobFuncion: function (oEvent) {
-            var oCtx  = oEvent.getSource().getBindingContext();
-            var oData = oCtx.getObject();
-            var sPath = oCtx.getPath();
-            var sDesc = "cod_concepto='" + oData.cod_concepto + "', nivel=" + oData.nivel;
-            var that  = this;
-
-            MessageBox.confirm("¿Confirma la Eliminación del Registro " + sDesc + "?", {
-                title       : "Confirmar Eliminación",
-                emphasizedAction: MessageBox.Action.OK,
-                onClose     : function (sAction) {
-                    if (sAction !== MessageBox.Action.OK) { return; }
-                    var oModel = that.getOwnerComponent().getModel();
-                    oModel.remove(sPath, {
-                        success: function () {
-                            MessageToast.show("Registro eliminado correctamente");
-                            oModel.refresh();
-                        },
-                        error: function (oErr) {
-                            MessageBox.error("Error al eliminar: " + (oErr.message || oErr.statusCode));
-                        }
-                    });
-                }
+        // ── Helper compartido: carga lazy de SheetJS ─────────────────────────
+        _cargarXlsx: function () {
+            if (window.XLSX) { return Promise.resolve(window.XLSX); }
+            return new Promise(function (resolve, reject) {
+                var sUrl = sap.ui.require.toUrl("zpncnd/datos/maestros/pncnddatosmaestros") + "/resources/xlsx.full.min.js";
+                var oScript     = document.createElement("script");
+                oScript.src     = sUrl;
+                oScript.onload  = function () { resolve(window.XLSX); };
+                oScript.onerror = reject;
+                document.head.appendChild(oScript);
             });
         },
 
-        _getDialogFuncion: function () {
-            var that = this;
-            if (this._oDlgFuncion) { return Promise.resolve(); }
-            var sFragId = this.createId("dlgFun");
-            this._sDlgFunId = sFragId;
-            return Fragment.load({
-                id        : sFragId,
-                name      : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.DialogEditarFuncion",
-                controller: this
-            }).then(function (oDialog) {
-                that._oDlgFuncion = oDialog;
-                that.getView().addDependent(oDialog);
-            });
-        },
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — AprobXFuncion
+        // ════════════════════════════════════════════════════════════════════
+        onSearchFuncion           : function (e) { this._funcion.onSearch(e); },
+        onEditarAprobFuncion      : function (e) { this._funcion.onEditar(e); },
+        onEliminarAprobFuncion    : function (e) { this._funcion.onEliminar(e); },
+        onConfirmarEditarFuncion  : function ()  { this._funcion.onConfirmarEditar(); },
+        onCancelarEditarFuncion   : function ()  { this._funcion.onCancelarEditar(); },
+        onModMasivaFuncion        : function ()  { this._funcion.onModMasiva(); },
+        onDescargarTemplateFuncion: function ()  { this._funcion.onDescargarTemplate(); },
+        onCargaMasivaFuncion      : function ()  { this._funcion.onCargaMasiva(); },
 
-        // ── APROBADORES POR OFICINA DE VENTAS ───────────────────────
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — AprobXOfVentas
+        // ════════════════════════════════════════════════════════════════════
+        onSearchOfVentas            : function (e) { this._ofventas.onSearch(e); },
+        onEditarAprobOfVentas       : function (e) { this._ofventas.onEditar(e); },
+        onEliminarAprobOfVentas     : function (e) { this._ofventas.onEliminar(e); },
+        onConfirmarEditarOfVentas   : function ()  { this._ofventas.onConfirmarEditar(); },
+        onCancelarEditarOfVentas    : function ()  { this._ofventas.onCancelarEditar(); },
+        onModMasivaOfVentas         : function ()  { this._ofventas.onModMasiva(); },
+        onDescargarTemplateOfVentas : function ()  { this._ofventas.onDescargarTemplate(); },
+        onCargaMasivaOfVentas       : function ()  { this._ofventas.onCargaMasiva(); },
 
-        onEditarAprobOfVentas: function (oEvent) {
-            var oCtx  = oEvent.getSource().getBindingContext();
-            var oData = oCtx.getObject();
-            this._sEditPathOV = oCtx.getPath();
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — Clientes
+        // ════════════════════════════════════════════════════════════════════
+        onSearchClientes            : function (e) { this._clientes.onSearch(e); },
+        onEditarClientes            : function (e) { this._clientes.onEditar(e); },
+        onEliminarClientes          : function (e) { this._clientes.onEliminar(e); },
+        onConfirmarEditarClientes   : function ()  { this._clientes.onConfirmarEditar(); },
+        onCancelarEditarClientes    : function ()  { this._clientes.onCancelarEditar(); },
+        onModMasivaClientes         : function ()  { this._clientes.onModMasiva(); },
+        onDescargarTemplateClientes : function ()  { this._clientes.onDescargarTemplate(); },
+        onCargaMasivaClientes       : function ()  { this._clientes.onCargaMasiva(); },
 
-            var that = this;
-            this._getDialogOfVentas().then(function () {
-                var sId = that._sDlgOVId;
-                Fragment.byId(sId, "eOVVkorg").setValue(oData.vkorg);
-                Fragment.byId(sId, "eOVVtweg").setValue(oData.vtweg);
-                Fragment.byId(sId, "eOVSpart").setValue(oData.spart);
-                Fragment.byId(sId, "eOVTipoAprob").setValue(oData.id_tipo_aprob);
-                Fragment.byId(sId, "eOVNivel").setValue(String(oData.nivel));
-                Fragment.byId(sId, "eOVVkbur").setValue(oData.vkbur);
-                Fragment.byId(sId, "eOVBran2").setValue(oData.bran2 || "");
-                Fragment.byId(sId, "eOVMail").setValue(oData.mail || "");
-                that._oDlgOfVentas.open();
-            });
-        },
-
-        onConfirmarEditarOfVentas: function () {
-            var sMail = Fragment.byId(this._sDlgOVId, "eOVMail").getValue().trim();
-            var that  = this;
-
-            MessageBox.confirm("¿Confirma la Edición del Registro?", {
-                title   : "Confirmar Edición",
-                onClose : function (sAction) {
-                    if (sAction !== MessageBox.Action.OK) { return; }
-                    var oModel = that.getOwnerComponent().getModel();
-                    oModel.update(that._sEditPathOV, { mail: sMail }, {
-                        success: function () {
-                            that._oDlgOfVentas.close();
-                            MessageToast.show("Registro actualizado correctamente");
-                            oModel.refresh();
-                        },
-                        error: function (oErr) {
-                            MessageBox.error("Error al actualizar: " + (oErr.message || oErr.statusCode));
-                        }
-                    });
-                }
-            });
-        },
-
-        onCancelarEditarOfVentas: function () {
-            this._oDlgOfVentas.close();
-        },
-
-        onEliminarAprobOfVentas: function (oEvent) {
-            var oCtx  = oEvent.getSource().getBindingContext();
-            var oData = oCtx.getObject();
-            var sPath = oCtx.getPath();
-            var sDesc = "vkorg='" + oData.vkorg + "', vtweg='" + oData.vtweg + "', nivel=" + oData.nivel;
-            var that  = this;
-
-            MessageBox.confirm("¿Confirma la Eliminación del Registro " + sDesc + "?", {
-                title       : "Confirmar Eliminación",
-                emphasizedAction: MessageBox.Action.OK,
-                onClose     : function (sAction) {
-                    if (sAction !== MessageBox.Action.OK) { return; }
-                    var oModel = that.getOwnerComponent().getModel();
-                    oModel.remove(sPath, {
-                        success: function () {
-                            MessageToast.show("Registro eliminado correctamente");
-                            oModel.refresh();
-                        },
-                        error: function (oErr) {
-                            MessageBox.error("Error al eliminar: " + (oErr.message || oErr.statusCode));
-                        }
-                    });
-                }
-            });
-        },
-
-        _getDialogOfVentas: function () {
-            var that = this;
-            if (this._oDlgOfVentas) { return Promise.resolve(); }
-            var sFragId = this.createId("dlgOV");
-            this._sDlgOVId = sFragId;
-            return Fragment.load({
-                id        : sFragId,
-                name      : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.DialogEditarOfVentas",
-                controller: this
-            }).then(function (oDialog) {
-                that._oDlgOfVentas = oDialog;
-                that.getView().addDependent(oDialog);
-            });
-        }
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — Dialogs compartidos (routed via _activeUtil)
+        // ════════════════════════════════════════════════════════════════════
+        onAceptarModMasiva    : function ()  { this._activeUtil.onAceptarModMasiva(); },
+        onCancelarModMasiva   : function ()  { this._activeUtil.onCancelarModMasiva(); },
+        onArchivoSeleccionado : function (e) { this._activeUtil.onArchivoSeleccionado(e); },
+        onProcesarCarga       : function ()  { this._activeUtil.onProcesarCarga(); },
+        onCancelarCarga       : function ()  { this._activeUtil.onCancelarCarga(); },
+        onCerrarProgreso      : function ()  { this._activeUtil.onCerrarProgreso(); },
+        onEscapeProgreso      : function (e) { this._activeUtil.onEscapeProgreso(e); }
     });
 });

@@ -1,0 +1,122 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox fitContainer="true" width="100%">
+        <sfb:SmartFilterBar
+            id="sfbClientes"
+            entitySet="PNCND_CLIENTES"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="kunnr" label="Nro. Cliente" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="vkorg" label="Org. Ventas"  visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="vtweg" label="Canal"         visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="spart" label="Sector"        visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="vkbur" label="Of. Ventas"   visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="bran2" label="División"      visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="name1" label="Nombre"        visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchClientes" width="100%" liveChange=".onSearchClientes"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
+        <comp:SmartTable
+            id="stClientes"
+            entitySet="PNCND_CLIENTES"
+            tableType="ResponsiveTable"
+            enableExport="true"
+            useVariantManagement="false"
+            useTablePersonalisation="true"
+            enableAutoBinding="true"
+            showRowCount="true"
+            header="Clientes">
+
+            <comp:customToolbar>
+                <OverflowToolbar design="Transparent">
+                    <ToolbarSpacer/>
+                    <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaClientes"/>
+                    <ToolbarSeparator/>
+                    <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateClientes"/>
+                    <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaClientes"/>
+                </OverflowToolbar>
+            </comp:customToolbar>
+
+            <Table id="_tblClientes" fixedLayout="false" mode="MultiSelect">
+                <columns>
+                    <Column width="12rem">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"kunnr","leadingProperty":"kunnr","sortProperty":"kunnr","filterProperty":"kunnr","width":"12rem"}'/>
+                        </customData>
+                        <Text text="Nro. Cliente"/>
+                    </Column>
+                    <Column width="10rem">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"vkorg","leadingProperty":"vkorg","sortProperty":"vkorg","filterProperty":"vkorg","width":"10rem"}'/>
+                        </customData>
+                        <Text text="Org. Ventas"/>
+                    </Column>
+                    <Column width="8rem">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"vtweg","leadingProperty":"vtweg","sortProperty":"vtweg","filterProperty":"vtweg","width":"8rem"}'/>
+                        </customData>
+                        <Text text="Canal"/>
+                    </Column>
+                    <Column width="8rem">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"spart","leadingProperty":"spart","sortProperty":"spart","filterProperty":"spart","width":"8rem"}'/>
+                        </customData>
+                        <Text text="Sector"/>
+                    </Column>
+                    <Column width="10rem">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"vkbur","leadingProperty":"vkbur","sortProperty":"vkbur","filterProperty":"vkbur","width":"10rem"}'/>
+                        </customData>
+                        <Text text="Of. Ventas"/>
+                    </Column>
+                    <Column width="12rem">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"bran2","leadingProperty":"bran2","sortProperty":"bran2","filterProperty":"bran2","width":"12rem"}'/>
+                        </customData>
+                        <Text text="División"/>
+                    </Column>
+                    <Column>
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"name1","leadingProperty":"name1","sortProperty":"name1","filterProperty":"name1"}'/>
+                        </customData>
+                        <Text text="Nombre"/>
+                    </Column>
+                    <Column width="8rem" hAlign="Center">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey":"acciones","sortProperty":null,"filterProperty":null}'/>
+                        </customData>
+                        <Text text="Acciones"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{kunnr}" wrapping="false"/>
+                            <Text text="{vkorg}" wrapping="false"/>
+                            <Text text="{vtweg}" wrapping="false"/>
+                            <Text text="{spart}" wrapping="false"/>
+                            <Text text="{vkbur}" wrapping="false"/>
+                            <Text text="{bran2}" wrapping="false"/>
+                            <Text text="{name1}" wrapping="false"/>
+                            <HBox justifyContent="Center">
+                                <Button icon="sap-icon://edit"   press=".onEditarClientes"   class="sapUiTinyMarginEnd"/>
+                                <Button icon="sap-icon://delete" press=".onEliminarClientes" type="Reject"/>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </comp:SmartTable>
+    </VBox>
+
+</core:FragmentDefinition>

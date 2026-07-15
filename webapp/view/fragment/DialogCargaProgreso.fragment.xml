@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+
+    <Dialog id="dlgCargaProgreso" title="Carga Masiva — Procesando"
+            contentWidth="600px" contentHeight="420px"
+            resizable="true" draggable="true" escapeHandler=".onEscapeProgreso">
+        <content>
+            <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+                <Text id="txtProgresoMensaje" text="{carga>/mensaje}" class="sapUiSmallMarginBottom"/>
+                <ProgressIndicator
+                    percentValue="{carga>/porcentaje}"
+                    displayValue="{carga>/displayValue}"
+                    state="{carga>/estado}"
+                    showValue="true"
+                    class="sapUiSmallMarginBottom"/>
+                <Panel headerText="Log de proceso" expandable="false" width="100%"
+                       class="sapUiNoContentPadding">
+                    <List growing="true" growingThreshold="200"
+                          showSeparators="Inner"
+                          items="{carga>/log}">
+                        <StandardListItem
+                            title="{carga>texto}"
+                            info="{carga>icono}"
+                            infoState="{carga>estado}"/>
+                    </List>
+                </Panel>
+            </VBox>
+        </content>
+        <endButton>
+            <Button id="btnCerrarProgreso" text="Cerrar"
+                    enabled="{carga>/cerrarEnabled}"
+                    press=".onCerrarProgreso"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

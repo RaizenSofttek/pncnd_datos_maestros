@@ -19,6 +19,9 @@
             </sfb:controlConfiguration>
         </sfb:SmartFilterBar>
 
+        <SearchField id="sfSearchFuncion" width="100%" liveChange=".onSearchFuncion"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
         <comp:SmartTable
             id="stFuncion"
             entitySet="PNCND_APROB_X_FUNCION"
@@ -30,7 +33,17 @@
             showRowCount="true"
             header="Aprobadores por Función">
 
-            <Table id="_tblFuncion" fixedLayout="false">
+            <comp:customToolbar>
+                <OverflowToolbar design="Transparent">
+                    <ToolbarSpacer/>
+                    <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaFuncion"/>
+                    <ToolbarSeparator/>
+                    <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateFuncion"/>
+                    <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaFuncion"/>
+                </OverflowToolbar>
+            </comp:customToolbar>
+
+            <Table id="_tblFuncion" fixedLayout="false" mode="MultiSelect">
                 <columns>
                     <Column width="15rem">
                         <customData>

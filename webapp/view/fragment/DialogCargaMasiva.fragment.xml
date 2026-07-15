@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:unified="sap.ui.unified">
+
+    <Dialog id="dlgCargaMasiva" title="Carga Masiva" contentWidth="500px">
+        <content>
+            <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+                <MessageStrip
+                    text="Cargue el archivo XLS/XLSX generado con el botón Template, con datos a partir de la fila 3. No modifique las filas 1 y 2."
+                    type="Information" showIcon="true" showCloseButton="false"
+                    class="sapUiSmallMarginBottom"/>
+                <unified:FileUploader
+                    id="fuCargaMasiva"
+                    fileType="xls,xlsx"
+                    mimeType="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    uploadOnChange="false"
+                    buttonOnly="false"
+                    width="100%"
+                    placeholder="Seleccionar archivo XLS / XLSX..."
+                    change=".onArchivoSeleccionado"/>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button id="btnProcesarCarga" text="Procesar" type="Emphasized"
+                    enabled="false" press=".onProcesarCarga"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarCarga"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

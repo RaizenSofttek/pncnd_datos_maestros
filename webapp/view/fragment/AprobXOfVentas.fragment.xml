@@ -23,6 +23,9 @@
             </sfb:controlConfiguration>
         </sfb:SmartFilterBar>
 
+        <SearchField id="sfSearchOfVentas" width="100%" liveChange=".onSearchOfVentas"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
         <comp:SmartTable
             id="stOfVentas"
             entitySet="PNCND_APROB_X_OF_VENTAS"
@@ -34,7 +37,17 @@
             showRowCount="true"
             header="Aprobadores por Oficina de Ventas">
 
-            <Table id="_tblOfVentas" fixedLayout="false">
+            <comp:customToolbar>
+                <OverflowToolbar design="Transparent">
+                    <ToolbarSpacer/>
+                    <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaOfVentas"/>
+                    <ToolbarSeparator/>
+                    <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateOfVentas"/>
+                    <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaOfVentas"/>
+                </OverflowToolbar>
+            </comp:customToolbar>
+
+            <Table id="_tblOfVentas" fixedLayout="false" mode="MultiSelect">
                 <columns>
                     <Column width="7rem">
                         <customData>

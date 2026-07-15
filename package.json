@@ -2,7 +2,11 @@
   "name": "pncnd_datos_maestros",
   "version": "0.0.1",
   "description": "PNCND - Datos Maestros de Aprobadores",
-  "keywords": ["ui5", "openui5", "sapui5"],
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
   "main": "webapp/index.html",
   "devDependencies": {
     "@sap/ux-ui5-tooling": "1",
@@ -22,5 +26,8 @@
     "build:mta": "rimraf resources mta_archives && mbt build",
     "undeploy": "cf undeploy zpncnddatosmaestros --delete-services --delete-service-keys --delete-service-brokers"
   },
-  "sapuxLayer": "CUSTOMER_BASE"
+  "sapuxLayer": "CUSTOMER_BASE",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
 }
