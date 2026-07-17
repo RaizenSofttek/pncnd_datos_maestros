@@ -79,7 +79,39 @@ sap.ui.define([
                     if (oSFB && oST) { oST.setSmartFilterId(oSFB.getId()); }
                     that._sCurrentFragId = sFragId;
                     that._sCurrentEntity = sEntitySet;
+                    // Defer so que el motor de rendering de UI5 vuelque el DOM antes de medir
+                    setTimeout(function () { that._fixStickyHeaders(sFragId, mCfg.stId); }, 0);
                 });
+        },
+
+        /*
+         * Hace sticky el toolbar interno del SmartTable (título + ⚙ + export)
+         * y ajusta el top de los headers de columna para que queden justo debajo.
+         *
+         * Por qué JS y no sólo CSS:
+         *  - El framework recalcula `element.style.top` en cada scroll/resize con
+         *    un setter sin !important, y CSS !important de clase gana sobre ese
+         *    inline normal — pero el selector puro no alcanza al toolbar porque
+         *    SAP lo inyecta como extensión y puede variar entre versiones.
+         *  - Aquí encontramos el elemento real con querySelector y le ponemos la
+         *    clase que sí lleva !important, lo que garantiza que el CSS gane.
+         *  - La altura real del toolbar se mide con offsetHeight y se publica como
+         *    CSS custom property (--pncndTBH) para que .pncndStickyColHdr la use.
+         */
+        _fixStickyHeaders: function (sFragId, sStId) {
+            var oST = Fragment.byId(sFragId, sStId);
+            if (!oST || !oST.getDomRef()) { return; }
+            var oDomRef    = oST.getDomRef();
+            var oToolbarEl = oDomRef.querySelector(".sapMTB");
+            var oColHdrEl  = oDomRef.querySelector(".sapMTableColHdr");
+            if (oToolbarEl) {
+                oToolbarEl.classList.add("pncndStickyToolbar");
+                // Publica la altura real como var CSS para que pncndStickyColHdr la use
+                oDomRef.style.setProperty("--pncndTBH", oToolbarEl.offsetHeight + "px");
+            }
+            if (oColHdrEl) {
+                oColHdrEl.classList.add("pncndStickyColHdr");
+            }
         },
 
         // ── Helper compartido: tabla interna del SmartTable activo ───────────

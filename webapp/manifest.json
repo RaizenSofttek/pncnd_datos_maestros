@@ -23,10 +23,10 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "pncnd_datos_maestros-display": {
-          "semanticObject": "pncnd_datos_maestros",
+        "zpncnddatosmaestros-display": {
+          "semanticObject": "zpncnddatosmaestros",
           "action": "display",
-          "title": "{{pncnd_datos_maestros-display.flpTitle}}",
+          "title": "{{appTitle}}",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -86,7 +86,9 @@
     },
     "resources": {
       "css": [
-        { "uri": "css/style.css" }
+        {
+          "uri": "css/style.css"
+        }
       ]
     },
     "routing": {
@@ -105,7 +107,9 @@
         {
           "name": "RouteMain",
           "pattern": ":?query:",
-          "target": ["TargetMain"]
+          "target": [
+            "TargetMain"
+          ]
         }
       ],
       "targets": {

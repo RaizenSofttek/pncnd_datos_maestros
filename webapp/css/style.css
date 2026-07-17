@@ -27,21 +27,19 @@
 }
 
 /*
- * SmartTable agrega su toolbar (título + íconos P13n/export) como extension del
- * inner sap.m.Table, no como headerToolbar → sticky="HeaderToolbar" no lo alcanza.
- * Este CSS lo fija manualmente: el toolbar es el primer hijo .sapMIBar directo del
- * contenedor .sapMList, y los títulos de columna se desplazan para quedar debajo.
+ * Clases aplicadas vía JS (_fixStickyHeaders) sobre el DOM del SmartTable.
+ * CSS !important gana sobre el inline style que el framework aplica en cada
+ * recálculo (element.style.top = "0px" sin !important).
+ * --pncndTBH es una CSS custom property calculada con offsetHeight real del toolbar.
  */
-.pncndTableScroll .sapMList > .sapMIBar {
+.pncndStickyToolbar {
     position: sticky !important;
     top: 0 !important;
-    z-index: 4;
-    background-color: var(--sapBackgroundColor, #fff);
+    z-index: 4 !important;
+    background-color: var(--sapBackgroundColor, #fff) !important;
 }
 
-/* 3rem = altura estándar de un toolbar Fiori en modo cozy (≈ 48 px) */
-.pncndTableScroll .sapMTableColHdr {
-    top: 3rem !important;
-    z-index: 3;
-    background-color: var(--sapGroup_TitleBackground, #f5f5f5);
+.pncndStickyColHdr {
+    top: var(--pncndTBH, 3rem) !important;
+    z-index: 3 !important;
 }
