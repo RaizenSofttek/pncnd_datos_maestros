@@ -4,8 +4,12 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_funcion",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_of_ventas",
-    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes"
-], function (Controller, MessageToast, Fragment, AprobFuncion, AprobOfVentas, Clientes) {
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_of_ventas_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_funcion_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes_audit"
+], function (Controller, MessageToast, Fragment, AprobFuncion, AprobOfVentas, Clientes,
+             AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit) {
     "use strict";
 
     // Mapa de fragments por entidad
@@ -24,6 +28,21 @@ sap.ui.define([
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Clientes",
             sfbId: "sfbClientes",
             stId : "stClientes"
+        },
+        "PNCND_APROB_X_OF_VENTAS_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_OF_VENTAS_AUDIT",
+            sfbId: "sfbOfVentasAudit",
+            stId : "stOfVentasAudit"
+        },
+        "PNCND_APROB_X_FUNCION_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_FUNCION_AUDIT",
+            sfbId: "sfbFuncionAudit",
+            stId : "stFuncionAudit"
+        },
+        "PNCND_CLIENTES_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_CLIENTES_AUDIT",
+            sfbId: "sfbClientesAudit",
+            stId : "stClientesAudit"
         }
     };
 
@@ -31,9 +50,12 @@ sap.ui.define([
 
         // ── Ciclo de vida ────────────────────────────────────────────────────
         onInit: function () {
-            this._funcion   = new AprobFuncion(this);
-            this._ofventas  = new AprobOfVentas(this);
-            this._clientes  = new Clientes(this);
+            this._funcion        = new AprobFuncion(this);
+            this._ofventas       = new AprobOfVentas(this);
+            this._clientes       = new Clientes(this);
+            this._ofventasAudit  = new AprobOfVentasAudit(this);
+            this._funcionAudit   = new AprobFuncionAudit(this);
+            this._clientesAudit  = new ClientesAudit(this);
             this._activeUtil     = null;
             this._sCurrentEntity = null;
             this._nFragLoad      = 0;
@@ -203,7 +225,7 @@ sap.ui.define([
         _cargarXlsx: function () {
             if (window.XLSX) { return Promise.resolve(window.XLSX); }
             return new Promise(function (resolve, reject) {
-                var sUrl = sap.ui.require.toUrl("zpncnd/datos/maestros/pncnddatosmaestros") + "/resources/xlsx.full.min.js";
+                var sUrl = sap.ui.require.toUrl("zpncnd/datos/maestros/pncnddatosmaestros") + "/vendor/xlsx.full.min.js";
                 var oScript     = document.createElement("script");
                 oScript.src     = sUrl;
                 oScript.onload  = function () { resolve(window.XLSX); };
@@ -247,6 +269,21 @@ sap.ui.define([
         onModMasivaClientes         : function ()  { this._clientes.onModMasiva(); },
         onDescargarTemplateClientes : function ()  { this._clientes.onDescargarTemplate(); },
         onCargaMasivaClientes       : function ()  { this._clientes.onCargaMasiva(); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — AprobXOfVentasAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchOfVentasAudit : function (e) { this._ofventasAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — AprobXFuncionAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchFuncionAudit  : function (e) { this._funcionAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — ClientesAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchClientesAudit : function (e) { this._clientesAudit.onSearch(e); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — Dialogs compartidos (routed via _activeUtil)
