@@ -172,7 +172,7 @@
                                 <Text text="{vkorg_anterior}"        wrapping="false"/>
                                 <Text text="{vtweg_anterior}"        wrapping="false"/>
                                 <Text text="{spart_anterior}"        wrapping="false"/>
-                                <Text text="{id_tipo_aprob_anterior}"wrapping="false"/>
+                                <Text text="{id_tipo_aprob_anterior}" wrapping="false"/>
                                 <Text text="{nivel_anterior}"        wrapping="false"/>
                                 <Text text="{vkbur_anterior}"        wrapping="false"/>
                                 <Text text="{bran2_anterior}"        wrapping="false"/>

@@ -156,7 +156,7 @@
                                 <Text text="{id}"                  wrapping="false"/>
                                 <Text text="{accion}"              wrapping="false"/>
                                 <Text text="{fecha_modificacion}"  wrapping="false"/>
-                                <Text text="{usuario_modificacion}"wrapping="false"/>
+                                <Text text="{usuario_modificacion}" wrapping="false"/>
                                 <Text text="{kunnr_anterior}"      wrapping="false"/>
                                 <Text text="{vkorg_anterior}"      wrapping="false"/>
                                 <Text text="{vtweg_anterior}"      wrapping="false"/>
