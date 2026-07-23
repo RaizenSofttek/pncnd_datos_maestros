@@ -13,12 +13,9 @@
             showRestoreOnFB="true"
             showFilterConfiguration="false">
             <sfb:controlConfiguration>
-                <sfb:ControlConfiguration key="accion"               label="Acción"            visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
                 <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación" visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="cod_concepto_anterior" label="Cod. Concepto (ant.)" visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="mail_anterior"        label="Mail (ant.)"        visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="mail_nuevo"           label="Mail (nuevo)"       visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
             </sfb:controlConfiguration>
         </sfb:SmartFilterBar>
 
