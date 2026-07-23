@@ -26,7 +26,7 @@ sap.ui.define([
         { field: "kunnr", header: "Nro. Cliente", type: "String" },
         { field: "vkorg", header: "Org. Ventas",  type: "String" },
         { field: "vtweg", header: "Canal",         type: "String" },
-        { field: "spart", header: "Sector",        type: "String" },
+        { field: "spart", header: "Sector",        type: "String", pad: 2 },
         { field: "vkbur", header: "Of. Ventas",    type: "String" },
         { field: "bran2", header: "División",      type: "String" },
         { field: "name1", header: "Nombre",        type: "String" }
@@ -271,7 +271,13 @@ sap.ui.define([
                         var oReg = {};
                         COLS_CARGA.forEach(function (oCol, idx) {
                             var sVal = String(aFila[idx] !== undefined ? aFila[idx] : "").trim();
-                            oReg[oCol.field] = oCol.type === "Integer" ? (parseInt(sVal, 10) || 0) : sVal;
+                            if (oCol.type === "Integer") {
+                                oReg[oCol.field] = parseInt(sVal, 10) || 0;
+                            } else if (oCol.pad && sVal) {
+                                oReg[oCol.field] = sVal.padStart(oCol.pad, "0");
+                            } else {
+                                oReg[oCol.field] = sVal;
+                            }
                         });
                         aData.push(oReg);
                     }

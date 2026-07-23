@@ -4,8 +4,10 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/model/json/JSONModel"
-], function (MessageBox, MessageToast, Fragment, Filter, FilterOperator, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/BusyDialog",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/validacion_pncnd_aprob_x_funcion"
+], function (MessageBox, MessageToast, Fragment, Filter, FilterOperator, JSONModel, BusyDialog, Validacion) {
     "use strict";
 
     var ENTITY_SET = "PNCND_APROB_X_FUNCION";
@@ -253,8 +255,26 @@ sap.ui.define([
                         MessageBox.warning("El archivo no contiene registros (los datos deben comenzar en la fila 3).");
                         return;
                     }
-                    that._oDlgCM.close();
-                    that._procesarRegistros(aData);
+                    var oBusy = new BusyDialog({ title: "Validando archivo" });
+                    oBusy.open();
+                    Validacion.validar(aData, that._model(), function (sTexto) {
+                        oBusy.setText(sTexto);
+                    }).then(function (oResult) {
+                        oBusy.close();
+                        if (!oResult.valido) {
+                            var sMsg = oResult.errores.slice(0, 20).join("\n");
+                            if (oResult.errores.length > 20) {
+                                sMsg += "\n... y " + (oResult.errores.length - 20) + " error(es) más.";
+                            }
+                            MessageBox.error(sMsg, { title: "Errores de Validación — Carga interrumpida" });
+                            return;
+                        }
+                        that._oDlgCM.close();
+                        that._procesarRegistros(oResult.data);
+                    }).catch(function () {
+                        oBusy.close();
+                        MessageBox.error("No se pudo validar los datos. Verifique la conexión al servicio.");
+                    });
                 } catch (err) {
                     MessageBox.error("Error al procesar el archivo: " + err.message);
                 }
