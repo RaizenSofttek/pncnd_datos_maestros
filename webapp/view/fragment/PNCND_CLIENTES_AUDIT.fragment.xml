@@ -1,23 +1,22 @@
 <core:FragmentDefinition
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
-    xmlns:comp="sap.ui.comp.smarttable"
-    xmlns:sfb="sap.ui.comp.smartfilterbar">
+    xmlns:comp="sap.ui.comp.smarttable">
 
     <VBox width="100%" class="pncndFragContent">
 
-        <sfb:SmartFilterBar
-            id="sfbClientesAudit"
-            entitySet="PNCND_CLIENTES_AUDIT"
-            showGoOnFB="true"
-            showRestoreOnFB="true"
-            showFilterConfiguration="false">
-            <sfb:controlConfiguration>
-                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInFilterBar="true"/>
-                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación"  visibleInFilterBar="true"/>
-                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"             visibleInFilterBar="true"/>
-            </sfb:controlConfiguration>
-        </sfb:SmartFilterBar>
+        <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom sapUiSmallMarginTop">
+            <Label text="Acción:" class="sapUiSmallMarginEnd" wrapping="false"/>
+            <Input id="fAccion" placeholder="INSERT / UPDATE / DELETE" width="12rem"
+                   submit=".onFiltrarClientesAudit" class="sapUiSmallMarginEnd"/>
+            <Label text="Fecha Modificación:" class="sapUiSmallMarginEnd" wrapping="false"/>
+            <DatePicker id="fFecha" displayFormat="dd/MM/yyyy" width="11rem" class="sapUiSmallMarginEnd"/>
+            <Label text="Usuario:" class="sapUiSmallMarginEnd" wrapping="false"/>
+            <Input id="fUsuario" placeholder="Filtrar por usuario" width="16rem"
+                   submit=".onFiltrarClientesAudit" class="sapUiSmallMarginEnd"/>
+            <Button text="Ir" type="Emphasized" press=".onFiltrarClientesAudit" class="sapUiSmallMarginEnd"/>
+            <Button icon="sap-icon://clear-filter" tooltip="Limpiar filtros" press=".onLimpiarFiltrosClientesAudit"/>
+        </HBox>
 
         <SearchField id="sfSearchClientesAudit" width="100%" liveChange=".onSearchClientesAudit"
             placeholder="Buscar en acción, usuario, nro. cliente, nombre..." class="sapUiSmallMarginBottom"/>
@@ -153,7 +152,7 @@
                                 <Text text="{id}"                  wrapping="false"/>
                                 <Text text="{accion}"              wrapping="false"/>
                                 <Text text="{fecha_modificacion}"  wrapping="false"/>
-                                <Text text="{usuario_modificacion}" wrapping="false"/>
+                                <Text text="{usuario_modificacion}"wrapping="false"/>
                                 <Text text="{kunnr_anterior}"      wrapping="false"/>
                                 <Text text="{vkorg_anterior}"      wrapping="false"/>
                                 <Text text="{vtweg_anterior}"      wrapping="false"/>

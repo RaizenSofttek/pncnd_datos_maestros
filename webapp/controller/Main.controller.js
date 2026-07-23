@@ -31,17 +31,17 @@ sap.ui.define([
         },
         "PNCND_APROB_X_OF_VENTAS_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_OF_VENTAS_AUDIT",
-            sfbId: "sfbOfVentasAudit",
+            sfbId: null,
             stId : "stOfVentasAudit"
         },
         "PNCND_APROB_X_FUNCION_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_FUNCION_AUDIT",
-            sfbId: "sfbFuncionAudit",
+            sfbId: null,
             stId : "stFuncionAudit"
         },
         "PNCND_CLIENTES_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_CLIENTES_AUDIT",
-            sfbId: "sfbClientesAudit",
+            sfbId: null,
             stId : "stClientesAudit"
         }
     };
@@ -96,7 +96,7 @@ sap.ui.define([
                 .then(function (oFragment) {
                     var aControls = Array.isArray(oFragment) ? oFragment : [oFragment];
                     aControls.forEach(function (oCtrl) { oContainer.addItem(oCtrl); });
-                    var oSFB = Fragment.byId(sFragId, mCfg.sfbId);
+                    var oSFB = mCfg.sfbId ? Fragment.byId(sFragId, mCfg.sfbId) : null;
                     var oST  = Fragment.byId(sFragId, mCfg.stId);
                     if (oSFB && oST) { oST.setSmartFilterId(oSFB.getId()); }
                     that._sCurrentFragId = sFragId;
@@ -273,17 +273,23 @@ sap.ui.define([
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — AprobXOfVentasAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
-        onSearchOfVentasAudit : function (e) { this._ofventasAudit.onSearch(e); },
+        onSearchOfVentasAudit        : function (e) { this._ofventasAudit.onSearch(e); },
+        onFiltrarOfVentasAudit       : function ()  { this._ofventasAudit.onFiltrar(); },
+        onLimpiarFiltrosOfVentasAudit: function ()  { this._ofventasAudit.onLimpiarFiltros(); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — AprobXFuncionAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
-        onSearchFuncionAudit  : function (e) { this._funcionAudit.onSearch(e); },
+        onSearchFuncionAudit         : function (e) { this._funcionAudit.onSearch(e); },
+        onFiltrarFuncionAudit        : function ()  { this._funcionAudit.onFiltrar(); },
+        onLimpiarFiltrosFuncionAudit : function ()  { this._funcionAudit.onLimpiarFiltros(); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — ClientesAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
-        onSearchClientesAudit : function (e) { this._clientesAudit.onSearch(e); },
+        onSearchClientesAudit        : function (e) { this._clientesAudit.onSearch(e); },
+        onFiltrarClientesAudit       : function ()  { this._clientesAudit.onFiltrar(); },
+        onLimpiarFiltrosClientesAudit: function ()  { this._clientesAudit.onLimpiarFiltros(); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — Dialogs compartidos (routed via _activeUtil)
