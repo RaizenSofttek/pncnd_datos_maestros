@@ -1,22 +1,23 @@
 <core:FragmentDefinition
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
-    xmlns:comp="sap.ui.comp.smarttable">
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
 
     <VBox width="100%" class="pncndFragContent">
 
-        <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom sapUiSmallMarginTop">
-            <Label text="Acción:" class="sapUiSmallMarginEnd" wrapping="false"/>
-            <Input id="fAccion" placeholder="INSERT / UPDATE / DELETE" width="12rem"
-                   submit=".onFiltrarClientesAudit" class="sapUiSmallMarginEnd"/>
-            <Label text="Fecha Modificación:" class="sapUiSmallMarginEnd" wrapping="false"/>
-            <DatePicker id="fFecha" displayFormat="dd/MM/yyyy" width="11rem" class="sapUiSmallMarginEnd"/>
-            <Label text="Usuario:" class="sapUiSmallMarginEnd" wrapping="false"/>
-            <Input id="fUsuario" placeholder="Filtrar por usuario" width="16rem"
-                   submit=".onFiltrarClientesAudit" class="sapUiSmallMarginEnd"/>
-            <Button text="Ir" type="Emphasized" press=".onFiltrarClientesAudit" class="sapUiSmallMarginEnd"/>
-            <Button icon="sap-icon://clear-filter" tooltip="Limpiar filtros" press=".onLimpiarFiltrosClientesAudit"/>
-        </HBox>
+        <sfb:SmartFilterBar
+            id="sfbClientesAudit"
+            entitySet="PNCND_CLIENTES_AUDIT"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación"  visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"             visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
 
         <SearchField id="sfSearchClientesAudit" width="100%" liveChange=".onSearchClientesAudit"
             placeholder="Buscar en acción, usuario, nro. cliente, nombre..." class="sapUiSmallMarginBottom"/>
@@ -149,24 +150,24 @@
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="{id}"                  wrapping="false"/>
-                                <Text text="{accion}"              wrapping="false"/>
-                                <Text text="{fecha_modificacion}"  wrapping="false"/>
-                                <Text text="{usuario_modificacion}"wrapping="false"/>
-                                <Text text="{kunnr_anterior}"      wrapping="false"/>
-                                <Text text="{vkorg_anterior}"      wrapping="false"/>
-                                <Text text="{vtweg_anterior}"      wrapping="false"/>
-                                <Text text="{spart_anterior}"      wrapping="false"/>
-                                <Text text="{vkbur_anterior}"      wrapping="false"/>
-                                <Text text="{bran2_anterior}"      wrapping="false"/>
-                                <Text text="{name1_anterior}"      wrapping="false"/>
-                                <Text text="{kunnr_nuevo}"         wrapping="false"/>
-                                <Text text="{vkorg_nuevo}"         wrapping="false"/>
-                                <Text text="{vtweg_nuevo}"         wrapping="false"/>
-                                <Text text="{spart_nuevo}"         wrapping="false"/>
-                                <Text text="{vkbur_nuevo}"         wrapping="false"/>
-                                <Text text="{bran2_nuevo}"         wrapping="false"/>
-                                <Text text="{name1_nuevo}"         wrapping="false"/>
+                                <Text text="{id}"                   wrapping="false"/>
+                                <Text text="{accion}"               wrapping="false"/>
+                                <Text text="{fecha_modificacion}"   wrapping="false"/>
+                                <Text text="{usuario_modificacion}" wrapping="false"/>
+                                <Text text="{kunnr_anterior}"       wrapping="false"/>
+                                <Text text="{vkorg_anterior}"       wrapping="false"/>
+                                <Text text="{vtweg_anterior}"       wrapping="false"/>
+                                <Text text="{spart_anterior}"       wrapping="false"/>
+                                <Text text="{vkbur_anterior}"       wrapping="false"/>
+                                <Text text="{bran2_anterior}"       wrapping="false"/>
+                                <Text text="{name1_anterior}"       wrapping="false"/>
+                                <Text text="{kunnr_nuevo}"          wrapping="false"/>
+                                <Text text="{vkorg_nuevo}"          wrapping="false"/>
+                                <Text text="{vtweg_nuevo}"          wrapping="false"/>
+                                <Text text="{spart_nuevo}"          wrapping="false"/>
+                                <Text text="{vkbur_nuevo}"          wrapping="false"/>
+                                <Text text="{bran2_nuevo}"          wrapping="false"/>
+                                <Text text="{name1_nuevo}"          wrapping="false"/>
                             </cells>
                         </ColumnListItem>
                     </items>

@@ -31,17 +31,17 @@ sap.ui.define([
         },
         "PNCND_APROB_X_OF_VENTAS_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_OF_VENTAS_AUDIT",
-            sfbId: null,
+            sfbId: "sfbOfVentasAudit",
             stId : "stOfVentasAudit"
         },
         "PNCND_APROB_X_FUNCION_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_FUNCION_AUDIT",
-            sfbId: null,
+            sfbId: "sfbFuncionAudit",
             stId : "stFuncionAudit"
         },
         "PNCND_CLIENTES_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_CLIENTES_AUDIT",
-            sfbId: null,
+            sfbId: "sfbClientesAudit",
             stId : "stClientesAudit"
         }
     };
@@ -273,23 +273,17 @@ sap.ui.define([
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — AprobXOfVentasAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
-        onSearchOfVentasAudit        : function (e) { this._ofventasAudit.onSearch(e); },
-        onFiltrarOfVentasAudit       : function ()  { this._ofventasAudit.onFiltrar(); },
-        onLimpiarFiltrosOfVentasAudit: function ()  { this._ofventasAudit.onLimpiarFiltros(); },
+        onSearchOfVentasAudit : function (e) { this._ofventasAudit.onSearch(e); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — AprobXFuncionAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
-        onSearchFuncionAudit         : function (e) { this._funcionAudit.onSearch(e); },
-        onFiltrarFuncionAudit        : function ()  { this._funcionAudit.onFiltrar(); },
-        onLimpiarFiltrosFuncionAudit : function ()  { this._funcionAudit.onLimpiarFiltros(); },
+        onSearchFuncionAudit  : function (e) { this._funcionAudit.onSearch(e); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — ClientesAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
-        onSearchClientesAudit        : function (e) { this._clientesAudit.onSearch(e); },
-        onFiltrarClientesAudit       : function ()  { this._clientesAudit.onFiltrar(); },
-        onLimpiarFiltrosClientesAudit: function ()  { this._clientesAudit.onLimpiarFiltros(); },
+        onSearchClientesAudit : function (e) { this._clientesAudit.onSearch(e); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — Dialogs compartidos (routed via _activeUtil)

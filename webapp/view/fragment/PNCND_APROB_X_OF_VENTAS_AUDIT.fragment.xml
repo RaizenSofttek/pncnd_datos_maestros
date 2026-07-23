@@ -1,22 +1,23 @@
 <core:FragmentDefinition
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
-    xmlns:comp="sap.ui.comp.smarttable">
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
 
     <VBox width="100%" class="pncndFragContent">
 
-        <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom sapUiSmallMarginTop">
-            <Label text="Acción:" class="sapUiSmallMarginEnd" wrapping="false"/>
-            <Input id="fAccion" placeholder="INSERT / UPDATE / DELETE" width="12rem"
-                   submit=".onFiltrarOfVentasAudit" class="sapUiSmallMarginEnd"/>
-            <Label text="Fecha Modificación:" class="sapUiSmallMarginEnd" wrapping="false"/>
-            <DatePicker id="fFecha" displayFormat="dd/MM/yyyy" width="11rem" class="sapUiSmallMarginEnd"/>
-            <Label text="Usuario:" class="sapUiSmallMarginEnd" wrapping="false"/>
-            <Input id="fUsuario" placeholder="Filtrar por usuario" width="16rem"
-                   submit=".onFiltrarOfVentasAudit" class="sapUiSmallMarginEnd"/>
-            <Button text="Ir" type="Emphasized" press=".onFiltrarOfVentasAudit" class="sapUiSmallMarginEnd"/>
-            <Button icon="sap-icon://clear-filter" tooltip="Limpiar filtros" press=".onLimpiarFiltrosOfVentasAudit"/>
-        </HBox>
+        <sfb:SmartFilterBar
+            id="sfbOfVentasAudit"
+            entitySet="PNCND_APROB_X_OF_VENTAS_AUDIT"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
 
         <SearchField id="sfSearchOfVentasAudit" width="100%" liveChange=".onSearchOfVentasAudit"
             placeholder="Buscar en acción, usuario, org. ventas, mail..." class="sapUiSmallMarginBottom"/>
