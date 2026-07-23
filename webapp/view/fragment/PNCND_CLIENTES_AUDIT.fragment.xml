@@ -13,9 +13,9 @@
             showRestoreOnFB="true"
             showFilterConfiguration="false">
             <sfb:controlConfiguration>
-                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación"  visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInFilterBar="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación"  visibleInFilterBar="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"             visibleInFilterBar="true"/>
             </sfb:controlConfiguration>
         </sfb:SmartFilterBar>
 
