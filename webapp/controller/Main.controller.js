@@ -286,6 +286,18 @@ sap.ui.define([
         onSearchClientesAudit : function (e) { this._clientesAudit.onSearch(e); },
 
         // ════════════════════════════════════════════════════════════════════
+        // FORMATTER
+        // ════════════════════════════════════════════════════════════════════
+        formatFecha: function (oValue) {
+            if (!oValue) { return ""; }
+            var d = (oValue instanceof Date) ? oValue : new Date(oValue);
+            if (isNaN(d.getTime())) { return String(oValue); }
+            var p = function (n) { return String(n).padStart(2, "0"); };
+            return p(d.getDate()) + "/" + p(d.getMonth() + 1) + "/" + d.getFullYear()
+                + " - " + p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
+        },
+
+        // ════════════════════════════════════════════════════════════════════
         // DELEGATES — Dialogs compartidos (routed via _activeUtil)
         // ════════════════════════════════════════════════════════════════════
         onAceptarModMasiva    : function ()  { this._activeUtil.onAceptarModMasiva(); },

@@ -35,7 +35,7 @@
                 showRowCount="true"
                 header="Auditoría - Clientes">
 
-                <Table id="_tblClientesAudit" fixedLayout="false" mode="None"
+                <Table id="_tblClientesAudit" fixedLayout="true" mode="None"
                        sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="5rem">
@@ -152,7 +152,7 @@
                             <cells>
                                 <Text text="{id}"                   wrapping="false"/>
                                 <Text text="{accion}"               wrapping="false"/>
-                                <Text text="{fecha_modificacion}"   wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
                                 <Text text="{usuario_modificacion}" wrapping="false"/>
                                 <Text text="{kunnr_anterior}"       wrapping="false"/>
                                 <Text text="{vkorg_anterior}"       wrapping="false"/>

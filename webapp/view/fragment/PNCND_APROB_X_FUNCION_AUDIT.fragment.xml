@@ -35,7 +35,7 @@
                 showRowCount="true"
                 header="Auditoría - Aprobadores por Función">
 
-                <Table id="_tblFuncionAudit" fixedLayout="false" mode="None"
+                <Table id="_tblFuncionAudit" fixedLayout="true" mode="None"
                        sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="5rem">
@@ -116,7 +116,7 @@
                             <cells>
                                 <Text text="{id}"                     wrapping="false"/>
                                 <Text text="{accion}"                 wrapping="false"/>
-                                <Text text="{fecha_modificacion}"     wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
                                 <Text text="{usuario_modificacion}"   wrapping="false"/>
                                 <Text text="{cod_concepto_anterior}"  wrapping="false"/>
                                 <Text text="{id_tipo_aprob_anterior}" wrapping="false"/>

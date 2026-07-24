@@ -35,7 +35,7 @@
                 showRowCount="true"
                 header="Auditoría - Aprobadores por Oficina de Ventas">
 
-                <Table id="_tblOfVentasAudit" fixedLayout="false" mode="None"
+                <Table id="_tblOfVentasAudit" fixedLayout="true" mode="None"
                        sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="5rem">
@@ -164,7 +164,7 @@
                             <cells>
                                 <Text text="{id}"                     wrapping="false"/>
                                 <Text text="{accion}"                 wrapping="false"/>
-                                <Text text="{fecha_modificacion}"     wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
                                 <Text text="{usuario_modificacion}"   wrapping="false"/>
                                 <Text text="{vkorg_anterior}"         wrapping="false"/>
                                 <Text text="{vtweg_anterior}"         wrapping="false"/>
