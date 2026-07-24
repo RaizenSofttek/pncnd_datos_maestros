@@ -19,6 +19,10 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "currentUserService": {
+        "uri": "/user-api/currentUser",
+        "type": "JSON"
       }
     },
     "crossNavigation": {
@@ -76,6 +80,11 @@
           "defaultBindingMode": "OneWay",
           "useBatch": false
         }
+      },
+      "modelUser": {
+        "dataSource": "currentUserService",
+        "preload": true,
+        "settings": {}
       },
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",

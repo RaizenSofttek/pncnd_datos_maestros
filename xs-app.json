@@ -3,6 +3,11 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/user-api(.*)",
+      "target": "$1",
+      "service": "sap-approuter-userapi"
+    },
+    {
       "source": "odata/v2/raizen",
       "destination": "api-cap-portal-nc-nd-masterdata",
       "authenticationType": "none",

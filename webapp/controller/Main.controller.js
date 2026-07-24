@@ -2,13 +2,16 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_funcion",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_of_ventas",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_of_ventas_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_funcion_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes_audit"
-], function (Controller, MessageToast, Fragment, AprobFuncion, AprobOfVentas, Clientes,
+], function (Controller, MessageToast, Fragment, Filter, FilterOperator,
+             AprobFuncion, AprobOfVentas, Clientes,
              AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit) {
     "use strict";
 
@@ -60,6 +63,34 @@ sap.ui.define([
             this._sCurrentEntity = null;
             this._nFragLoad      = 0;
             this._sCurrentFragId = null;
+            this._aplicarFiltroRoles();
+        },
+
+        _aplicarFiltroRoles: function () {
+            var that = this;
+            var oUserModel = this.getOwnerComponent().getModel("modelUser");
+            if (!oUserModel) { return; }
+
+            var fnFiltrar = function () {
+                var vScopes = oUserModel.getProperty("/scopes") || "";
+                var aScopes = Array.isArray(vScopes) ? vScopes : String(vScopes).split(/\s+/);
+                var bTieneRol = aScopes.some(function (s) {
+                    return s.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
+                });
+                if (!bTieneRol) {
+                    var oBinding = that.byId("selTabla").getBinding("items");
+                    if (oBinding) {
+                        oBinding.filter([new Filter("nombre", FilterOperator.NotContains, "_AUDIT")]);
+                    }
+                }
+            };
+
+            // Con preload:true el modelo normalmente ya tiene datos al llegar aquí
+            if (oUserModel.getProperty("/name")) {
+                fnFiltrar();
+            } else {
+                oUserModel.attachEventOnce("requestCompleted", fnFiltrar);
+            }
         },
 
         // ── SELECTOR DE TABLA ────────────────────────────────────────────────
