@@ -74,6 +74,8 @@ sap.ui.define([
             var fnFiltrar = function () {
                 var vScopes = oUserModel.getProperty("/scopes") || "";
                 var aScopes = Array.isArray(vScopes) ? vScopes : String(vScopes).split(/\s+/);
+                console.log("[PNCND] Usuario:", oUserModel.getProperty("/name"));
+                console.log("[PNCND] Scopes/Roles:", aScopes);
                 var bTieneRol = aScopes.some(function (s) {
                     return s.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
                 });
