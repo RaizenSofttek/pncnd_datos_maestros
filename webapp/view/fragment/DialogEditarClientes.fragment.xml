@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout.form">
+
+    <Dialog id="dlgEditarClientes" title="Editar Cliente" contentWidth="480px">
+        <content>
+            <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                labelSpanL="4" labelSpanM="4" emptySpanL="0" columnsL="1" columnsM="1">
+                <l:content>
+                    <Label text="Nro. Cliente"/>
+                    <Input id="eCliKunnr" enabled="false"/>
+                    <Label text="Org. Ventas"/>
+                    <Input id="eCliVkorg" maxLength="4"/>
+                    <Label text="Canal"/>
+                    <Input id="eCliVtweg" maxLength="2"/>
+                    <Label text="Sector"/>
+                    <Input id="eCliSpart" maxLength="2"/>
+                    <Label text="Of. Ventas"/>
+                    <Input id="eCliVkbur" maxLength="4"/>
+                    <Label text="División"/>
+                    <Input id="eCliBran2" maxLength="10"/>
+                    <Label text="Nombre"/>
+                    <Input id="eCliName1" maxLength="35"/>
+                </l:content>
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Confirmar" type="Emphasized" press=".onConfirmarEditarClientes"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarEditarClientes"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

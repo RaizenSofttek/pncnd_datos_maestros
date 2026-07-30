@@ -2,6 +2,17 @@
   "xsappname": "zpncnddatosmaestros",
   "tenant-mode": "dedicated",
   "description": "Security profile of PNCND Datos Maestros",
-  "scopes": [],
-  "role-templates": []
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.PNCND_TABLAS_AUDITORIAS",
+      "description": "Acceso a las tablas de auditoría"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "PNCND_TABLAS_AUDITORIAS",
+      "description": "Visualización de tablas de auditoría",
+      "scope-references": ["$XSAPPNAME.PNCND_TABLAS_AUDITORIAS"]
+    }
+  ]
 }

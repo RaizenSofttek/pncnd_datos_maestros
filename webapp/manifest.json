@@ -19,14 +19,22 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "currentUserService": {
+        "uri": "/user-api/currentUser",
+        "type": "JSON"
+      },
+      "attributesService": {
+        "uri": "/user-api/attributes",
+        "type": "JSON"
       }
     },
     "crossNavigation": {
       "inbounds": {
-        "pncnd_datos_maestros-display": {
-          "semanticObject": "pncnd_datos_maestros",
+        "zpncnddatosmaestros-display": {
+          "semanticObject": "zpncnddatosmaestros",
           "action": "display",
-          "title": "{{pncnd_datos_maestros-display.flpTitle}}",
+          "title": "{{appTitle}}",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -73,9 +81,14 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {
-          "metadataUrlParams": { "sap-language": "EN" },
-          "loadMetadataAsync": true
+          "defaultBindingMode": "OneWay",
+          "useBatch": false
         }
+      },
+      "modelUser": {
+        "dataSource": "attributesService",
+        "preload": true,
+        "settings": {}
       },
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
@@ -86,7 +99,9 @@
     },
     "resources": {
       "css": [
-        { "uri": "css/style.css" }
+        {
+          "uri": "css/style.css"
+        }
       ]
     },
     "routing": {
@@ -105,7 +120,9 @@
         {
           "name": "RouteMain",
           "pattern": ":?query:",
-          "target": ["TargetMain"]
+          "target": [
+            "TargetMain"
+          ]
         }
       ],
       "targets": {

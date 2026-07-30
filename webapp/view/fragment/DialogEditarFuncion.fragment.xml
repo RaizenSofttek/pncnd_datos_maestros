@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout.form">
+
+    <Dialog id="dlgEditarFuncion" title="Editar Aprobador por Función" contentWidth="480px">
+        <content>
+            <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                labelSpanL="4" labelSpanM="4" emptySpanL="0" columnsL="1" columnsM="1">
+                <l:content>
+                    <Label text="Cod. Concepto"/>
+                    <Input id="eFunCodConcepto"  enabled="false"/>
+                    <Label text="Tipo Aprobador"/>
+                    <Input id="eFunTipoAprob"    enabled="false"/>
+                    <Label text="Nivel"/>
+                    <Input id="eFunNivel"         enabled="false"/>
+                    <Label text="Mail"/>
+                    <Input id="eFunMail"          maxLength="50"/>
+                </l:content>
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Confirmar" type="Emphasized" press=".onConfirmarEditarFuncion"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarEditarFuncion"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

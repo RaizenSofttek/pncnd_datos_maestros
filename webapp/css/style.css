@@ -1,14 +1,45 @@
-.dmSelectorPanel {
-    min-width: 20rem;
-    max-width: 22rem;
-    border-right: 1px solid var(--sapList_BorderColor);
-}
-
-.dmSelectorPanelInner {
+/* Columna principal que ocupa el 100% del alto de la Page sin desbordarse */
+.pncndLayout {
     height: 100%;
+    overflow: hidden;
 }
 
-.dmTableArea {
-    padding: 0.5rem 1rem;
-    overflow: auto;
+/* Área del fragment: crece para ocupar el espacio que queda debajo del toolbar */
+.pncndFragArea {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* VBox raíz dentro de cada fragment: columna flex que llena el área disponible */
+.pncndFragContent {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Contenedor de la SmartTable: crece, el resto de sus hermanos quedan fijos arriba */
+.pncndTableScroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/*
+ * Clases aplicadas vía JS (_fixStickyHeaders) sobre el DOM del SmartTable.
+ * CSS !important gana sobre el inline style que el framework aplica en cada
+ * recálculo (element.style.top = "0px" sin !important).
+ * --pncndTBH es una CSS custom property calculada con offsetHeight real del toolbar.
+ */
+.pncndStickyToolbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 4 !important;
+    background-color: var(--sapBackgroundColor, #fff) !important;
+}
+
+.pncndStickyColHdr {
+    top: var(--pncndTBH, 3rem) !important;
+    z-index: 3 !important;
 }

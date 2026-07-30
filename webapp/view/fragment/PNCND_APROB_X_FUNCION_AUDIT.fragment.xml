@@ -1,0 +1,140 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbFuncionAudit"
+            entitySet="PNCND_APROB_X_FUNCION_AUDIT"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchFuncionAudit" width="100%" liveChange=".onSearchFuncionAudit"
+            placeholder="Buscar en acción, usuario, concepto, mail..." class="sapUiSmallMarginBottom"/>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stFuncionAudit"
+                entitySet="PNCND_APROB_X_FUNCION_AUDIT"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Auditoría - Aprobadores por Función">
+
+                <Table id="_tblFuncionAudit" fixedLayout="true" mode="None"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="5rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","filterProperty":"id","width":"5rem"}'/>
+                            </customData>
+                            <Text text="ID"/>
+                        </Column>
+                        <Column width="8rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"accion","leadingProperty":"accion","sortProperty":"accion","filterProperty":"accion","width":"8rem"}'/>
+                            </customData>
+                            <Text text="Acción"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"fecha_modificacion","leadingProperty":"fecha_modificacion","sortProperty":"fecha_modificacion","filterProperty":"fecha_modificacion","width":"14rem"}'/>
+                            </customData>
+                            <Text text="Fecha Modificación"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"usuario_modificacion","leadingProperty":"usuario_modificacion","sortProperty":"usuario_modificacion","filterProperty":"usuario_modificacion","width":"16rem"}'/>
+                            </customData>
+                            <Text text="Usuario"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto_anterior","leadingProperty":"cod_concepto_anterior","sortProperty":"cod_concepto_anterior","filterProperty":"cod_concepto_anterior","width":"16rem"}'/>
+                            </customData>
+                            <Text text="Cod. Concepto (ant.)"/>
+                        </Column>
+                        <Column width="9rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob_anterior","leadingProperty":"id_tipo_aprob_anterior","sortProperty":"id_tipo_aprob_anterior","filterProperty":"id_tipo_aprob_anterior","width":"9rem"}'/>
+                            </customData>
+                            <Text text="Tipo Aprob. (ant.)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"nivel_anterior","leadingProperty":"nivel_anterior","sortProperty":"nivel_anterior","filterProperty":"nivel_anterior","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Nivel (ant.)"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"mail_anterior","leadingProperty":"mail_anterior","sortProperty":"mail_anterior","filterProperty":"mail_anterior","width":"16rem"}'/>
+                            </customData>
+                            <Text text="Mail (ant.)"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto_nuevo","leadingProperty":"cod_concepto_nuevo","sortProperty":"cod_concepto_nuevo","filterProperty":"cod_concepto_nuevo","width":"16rem"}'/>
+                            </customData>
+                            <Text text="Cod. Concepto (nuevo)"/>
+                        </Column>
+                        <Column width="9rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob_nuevo","leadingProperty":"id_tipo_aprob_nuevo","sortProperty":"id_tipo_aprob_nuevo","filterProperty":"id_tipo_aprob_nuevo","width":"9rem"}'/>
+                            </customData>
+                            <Text text="Tipo Aprob. (nuevo)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"nivel_nuevo","leadingProperty":"nivel_nuevo","sortProperty":"nivel_nuevo","filterProperty":"nivel_nuevo","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Nivel (nuevo)"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"mail_nuevo","leadingProperty":"mail_nuevo","sortProperty":"mail_nuevo","filterProperty":"mail_nuevo","width":"16rem"}'/>
+                            </customData>
+                            <Text text="Mail (nuevo)"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{id}"                     wrapping="false"/>
+                                <Text text="{accion}"                 wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
+                                <Text text="{usuario_modificacion}"   wrapping="false"/>
+                                <Text text="{cod_concepto_anterior}"  wrapping="false"/>
+                                <Text text="{id_tipo_aprob_anterior}" wrapping="false"/>
+                                <Text text="{nivel_anterior}"         wrapping="false"/>
+                                <Text text="{mail_anterior}"          wrapping="false"/>
+                                <Text text="{cod_concepto_nuevo}"     wrapping="false"/>
+                                <Text text="{id_tipo_aprob_nuevo}"    wrapping="false"/>
+                                <Text text="{nivel_nuevo}"            wrapping="false"/>
+                                <Text text="{mail_nuevo}"             wrapping="false"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>

@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout.form">
+
+    <Dialog id="dlgEditarOfVentas" title="Editar Aprobador por Of. de Ventas" contentWidth="480px">
+        <content>
+            <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                labelSpanL="4" labelSpanM="4" emptySpanL="0" columnsL="1" columnsM="1">
+                <l:content>
+                    <Label text="Org. Ventas"/>
+                    <Input id="eOVVkorg"         enabled="false"/>
+                    <Label text="Canal"/>
+                    <Input id="eOVVtweg"         enabled="false"/>
+                    <Label text="Sector"/>
+                    <Input id="eOVSpart"         enabled="false"/>
+                    <Label text="Tipo Aprobador"/>
+                    <Input id="eOVTipoAprob"     enabled="false"/>
+                    <Label text="Nivel"/>
+                    <Input id="eOVNivel"         enabled="false"/>
+                    <Label text="Of. de Ventas"/>
+                    <Input id="eOVVkbur"         enabled="false"/>
+                    <Label text="División"/>
+                    <Input id="eOVBran2"         enabled="false"/>
+                    <Label text="Mail"/>
+                    <Input id="eOVMail"          maxLength="50"/>
+                </l:content>
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Confirmar" type="Emphasized" press=".onConfirmarEditarOfVentas"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarEditarOfVentas"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

@@ -8,30 +8,37 @@
 
     <Page showHeader="false" enableScrolling="false">
         <content>
-            <HBox height="100%" fitContainer="true">
+            <VBox width="100%" class="pncndLayout">
 
-                <!-- ====== SELECTOR DE TABLA ====== -->
-                <VBox class="dmSelectorPanel">
-                    <Panel headerText="Tablas" class="sapUiNoContentPadding dmSelectorPanelInner">
-                        <List
-                            id="lb_tabla_sel"
-                            mode="SingleSelectMaster"
-                            selectionChange=".onTablaSelChange"
-                            items="{tablas>/tablas}">
-                            <StandardListItem
-                                title="{tablas>descripcion}"
-                                description="{tablas>id_tabla}"
-                                type="Active"/>
-                        </List>
-                    </Panel>
-                </VBox>
+                <!-- ====== BARRA DE SELECCIÓN ====== -->
+                <Toolbar>
+                    <Label text="Tabla:" class="sapUiSmallMarginEnd"/>
+                    <Select
+                        id="selTabla"
+                        width="20rem"
+                        forceSelection="false"
+                        items="{
+                            path: '/PNCND_TABLAS_MAESTRAS',
+                            sorter: { path: 'descripcion' }
+                        }">
+                        <core:Item key="{nombre}" text="{descripcion}"/>
+                    </Select>
+                    <ToolbarSpacer width="1rem"/>
+                    <Button
+                        text="GO"
+                        type="Emphasized"
+                        press=".onApplyFilters"/>
+                    <Button
+                        icon="sap-icon://clear-filter"
+                        type="Transparent"
+                        tooltip="Limpiar"
+                        press=".onClearFilters"/>
+                </Toolbar>
 
-                <!-- ====== ÁREA DE TABLA DINÁMICA ====== -->
-                <VBox id="containerTable" fitContainer="true" width="100%" class="dmTableArea">
-                    <!-- SmartFilterBar + SmartTable se generan dinámicamente -->
-                </VBox>
+                <!-- ====== CONTENEDOR DE FRAGMENT ====== -->
+                <VBox id="fragmentContainer" width="100%" class="pncndFragArea"/>
 
-            </HBox>
+            </VBox>
         </content>
     </Page>
 
