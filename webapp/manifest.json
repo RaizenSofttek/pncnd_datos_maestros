@@ -23,6 +23,10 @@
       "currentUserService": {
         "uri": "/user-api/currentUser",
         "type": "JSON"
+      },
+      "attributesService": {
+        "uri": "/user-api/attributes",
+        "type": "JSON"
       }
     },
     "crossNavigation": {
@@ -82,7 +86,7 @@
         }
       },
       "modelUser": {
-        "dataSource": "currentUserService",
+        "dataSource": "attributesService",
         "preload": true,
         "settings": {}
       },

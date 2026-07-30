@@ -67,31 +67,34 @@ sap.ui.define([
         },
 
         _aplicarFiltroRoles: function () {
+            var oModelUser = this.getOwnerComponent().getModel("modelUser");
+            if (!oModelUser) { return; }
+
+            oModelUser.attachRequestCompleted(this._checkRoles.bind(this));
+            oModelUser.loadData("/user-api/attributes", null, true);
+        },
+
+        _checkRoles: function () {
             var that = this;
-            var oUserModel = this.getOwnerComponent().getModel("modelUser");
-            if (!oUserModel) { return; }
+            var oModelUser = this.getOwnerComponent().getModel("modelUser");
+            var oData = oModelUser.getData();
+            console.log("[PNCND] user-api/attributes:", JSON.stringify(oData));
 
-            var fnFiltrar = function () {
-                var vScopes = oUserModel.getProperty("/scopes") || "";
-                var aScopes = Array.isArray(vScopes) ? vScopes : String(vScopes).split(/\s+/);
-                console.log("[PNCND] user-api completo:", oUserModel.getData());
-                console.log("[PNCND] Scopes/Roles:", aScopes);
-                var bTieneRol = aScopes.some(function (s) {
-                    return s.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
-                });
-                if (!bTieneRol) {
-                    var oBinding = that.byId("selTabla").getBinding("items");
-                    if (oBinding) {
-                        oBinding.filter([new Filter("nombre", FilterOperator.NotContains, "_AUDIT")]);
-                    }
+            var sData = JSON.stringify(oData);
+            var bTieneRol = sData.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
+            console.log("[PNCND] Tiene rol PNCND_TABLAS_AUDITORIAS:", bTieneRol);
+
+            if (!bTieneRol) {
+                var oSelect  = that.byId("selTabla");
+                var oBinding = oSelect ? oSelect.getBinding("items") : null;
+                if (oBinding) {
+                    oBinding.filter([new Filter("nombre", FilterOperator.NotContains, "_AUDIT")]);
+                } else {
+                    setTimeout(function () {
+                        var oB2 = that.byId("selTabla") && that.byId("selTabla").getBinding("items");
+                        if (oB2) { oB2.filter([new Filter("nombre", FilterOperator.NotContains, "_AUDIT")]); }
+                    }, 1000);
                 }
-            };
-
-            // Con preload:true el modelo normalmente ya tiene datos al llegar aquí
-            if (oUserModel.getProperty("/name")) {
-                fnFiltrar();
-            } else {
-                oUserModel.attachEventOnce("requestCompleted", fnFiltrar);
             }
         },
 
