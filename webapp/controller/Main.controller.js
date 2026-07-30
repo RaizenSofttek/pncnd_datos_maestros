@@ -85,15 +85,24 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel();
             console.log("[PNCND] Consultando PNCND_TABLAS_MAESTRAS para cargar el listbox...");
 
+            var bMetadataOK = false;
             oModel.metadataLoaded().then(function () {
+                bMetadataOK = true;
                 console.log("[PNCND] Metadata OData cargada OK");
             }).catch(function (oErr) {
-                console.error("[PNCND] Metadata OData falló — las consultas no se ejecutarán:", oErr && (oErr.message || JSON.stringify(oErr)));
+                bMetadataOK = true;
+                console.error("[PNCND] Metadata OData falló:", oErr && (oErr.message || JSON.stringify(oErr)));
             });
 
             oModel.attachMetadataFailed(function (oEvent) {
                 console.error("[PNCND] metadataFailed:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
             });
+
+            setTimeout(function () {
+                if (!bMetadataOK) {
+                    console.error("[PNCND] Metadata sin respuesta tras 8s — el destination 'api-cap-portal-nc-nd-masterdata' en PRD probablemente apunta a una URL incorrecta o inaccesible");
+                }
+            }, 8000);
 
             oModel.attachRequestFailed(function (oEvent) {
                 var sUrl = oEvent.getParameter("url") || "";
