@@ -33,4 +33,4 @@ server:
         ignoreCertErrors: false
         backend:
           - path: /odata/v2/raizen
-            destination: PNCND_CAP_DM_srv
+            destination: api-cap-portal-nc-nd-masterdata
