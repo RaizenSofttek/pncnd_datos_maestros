@@ -87,7 +87,7 @@
       },
       "modelUser": {
         "dataSource": "attributesService",
-        "preload": true,
+        "preload": false,
         "settings": {}
       },
       "i18n": {
