@@ -9,7 +9,7 @@
     },
     {
       "source": "^/odata/v2/raizen(.*)",
-      "destination": "PNCND_CAP_DM_srv",
+      "destination": "api-cap-portal-nc-nd-masterdata",
       "authenticationType": "none",
       "csrfProtection": false
     },
