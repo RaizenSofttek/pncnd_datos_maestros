@@ -81,14 +81,37 @@ sap.ui.define([
         },
 
         _logTablaMaestra: function () {
+            var that = this;
             var oModel = this.getOwnerComponent().getModel();
             console.log("[PNCND] Consultando PNCND_TABLAS_MAESTRAS para cargar el listbox...");
+
             oModel.attachRequestFailed(function (oEvent) {
                 var sUrl = oEvent.getParameter("url") || "";
                 if (sUrl.indexOf("PNCND_TABLAS_MAESTRAS") !== -1) {
                     console.error("[PNCND] Error al cargar PNCND_TABLAS_MAESTRAS:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
                 }
             });
+
+            var fnAdjuntar = function () {
+                var oSelect  = that.byId("selTabla");
+                var oBinding = oSelect ? oSelect.getBinding("items") : null;
+                if (!oBinding) { setTimeout(fnAdjuntar, 300); return; }
+
+                var fnMostrar = function () {
+                    var aData = oBinding.getContexts().map(function (oCtx) { return oCtx.getObject(); });
+                    console.log("[PNCND] Datos recuperados de PNCND_TABLAS_MAESTRAS (" + aData.length + " entradas):");
+                    aData.forEach(function (oRow) { console.log("  →", JSON.stringify(oRow)); });
+                };
+
+                if (oBinding.getLength() > 0) {
+                    fnMostrar();
+                } else {
+                    oBinding.attachEventOnce("dataReceived", function (oEvent) {
+                        if (!oEvent.getParameter("error")) { fnMostrar(); }
+                    });
+                }
+            };
+            fnAdjuntar();
         },
 
         _checkRoles: function () {
@@ -97,7 +120,6 @@ sap.ui.define([
             var oData = oModelUser.getData();
             var sData = JSON.stringify(oData);
             var bTieneRol = sData.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
-            console.log("[PNCND] Tiene rol PNCND_TABLAS_AUDITORIAS:", bTieneRol);
 
             if (!bTieneRol) {
                 var oSelect  = that.byId("selTabla");
