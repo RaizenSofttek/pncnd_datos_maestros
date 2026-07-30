@@ -64,6 +64,7 @@ sap.ui.define([
             this._nFragLoad      = 0;
             this._sCurrentFragId = null;
             this._aplicarFiltroRoles();
+            this._logTablaMaestra();
         },
 
         _aplicarFiltroRoles: function () {
@@ -74,12 +75,21 @@ sap.ui.define([
             oModelUser.loadData("/user-api/attributes", null, true);
         },
 
+        _logTablaMaestra: function () {
+            var oModel = this.getOwnerComponent().getModel();
+            console.log("[PNCND] Consultando PNCND_TABLAS_MAESTRAS para cargar el listbox...");
+            oModel.attachRequestFailed(function (oEvent) {
+                var sUrl = oEvent.getParameter("url") || "";
+                if (sUrl.indexOf("PNCND_TABLAS_MAESTRAS") !== -1) {
+                    console.error("[PNCND] Error al cargar PNCND_TABLAS_MAESTRAS:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
+                }
+            });
+        },
+
         _checkRoles: function () {
             var that = this;
             var oModelUser = this.getOwnerComponent().getModel("modelUser");
             var oData = oModelUser.getData();
-            console.log("[PNCND] user-api/attributes:", JSON.stringify(oData));
-
             var sData = JSON.stringify(oData);
             var bTieneRol = sData.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
             console.log("[PNCND] Tiene rol PNCND_TABLAS_AUDITORIAS:", bTieneRol);
