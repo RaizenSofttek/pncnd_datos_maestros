@@ -92,10 +92,16 @@ sap.ui.define([
                 }
             });
 
+            var nRetry = 0;
             var fnAdjuntar = function () {
                 var oSelect  = that.byId("selTabla");
                 var oBinding = oSelect ? oSelect.getBinding("items") : null;
-                if (!oBinding) { setTimeout(fnAdjuntar, 300); return; }
+                if (!oBinding) {
+                    if (++nRetry <= 20) { setTimeout(fnAdjuntar, 300); }
+                    else { console.warn("[PNCND] PNCND_TABLAS_MAESTRAS: binding no disponible tras 6s"); }
+                    return;
+                }
+                console.log("[PNCND] Binding encontrado, length:", oBinding.getLength());
 
                 var fnMostrar = function () {
                     var aData = oBinding.getContexts().map(function (oCtx) { return oCtx.getObject(); });
@@ -107,7 +113,12 @@ sap.ui.define([
                     fnMostrar();
                 } else {
                     oBinding.attachEventOnce("dataReceived", function (oEvent) {
-                        if (!oEvent.getParameter("error")) { fnMostrar(); }
+                        var oError = oEvent.getParameter("error");
+                        if (oError) {
+                            console.error("[PNCND] dataReceived error en PNCND_TABLAS_MAESTRAS:", oError.message || oError);
+                        } else {
+                            fnMostrar();
+                        }
                     });
                 }
             };
