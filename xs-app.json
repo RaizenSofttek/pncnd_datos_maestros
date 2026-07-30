@@ -8,7 +8,7 @@
       "service": "sap-approuter-userapi"
     },
     {
-      "source": "^/odata/v2/raizen(.*)",
+      "source": "^/odata/v2/raizen",
       "destination": "api-cap-portal-nc-nd-masterdata",
       "authenticationType": "none",
       "csrfProtection": false
