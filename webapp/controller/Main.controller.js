@@ -71,7 +71,12 @@ sap.ui.define([
             var oModelUser = this.getOwnerComponent().getModel("modelUser");
             if (!oModelUser) { return; }
 
-            oModelUser.attachRequestCompleted(this._checkRoles.bind(this));
+            var fnOnce = function () {
+                oModelUser.detachRequestCompleted(fnOnce);
+                this._checkRoles();
+            }.bind(this);
+
+            oModelUser.attachRequestCompleted(fnOnce);
             oModelUser.loadData("/user-api/attributes", null, true);
         },
 
