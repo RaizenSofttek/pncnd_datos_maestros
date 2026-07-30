@@ -85,6 +85,16 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel();
             console.log("[PNCND] Consultando PNCND_TABLAS_MAESTRAS para cargar el listbox...");
 
+            oModel.metadataLoaded().then(function () {
+                console.log("[PNCND] Metadata OData cargada OK");
+            }).catch(function (oErr) {
+                console.error("[PNCND] Metadata OData falló — las consultas no se ejecutarán:", oErr && (oErr.message || JSON.stringify(oErr)));
+            });
+
+            oModel.attachMetadataFailed(function (oEvent) {
+                console.error("[PNCND] metadataFailed:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
+            });
+
             oModel.attachRequestFailed(function (oEvent) {
                 var sUrl = oEvent.getParameter("url") || "";
                 if (sUrl.indexOf("PNCND_TABLAS_MAESTRAS") !== -1) {
