@@ -1,0 +1,69 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbCodConcepto"
+            entitySet="PNCND_COD_CONCEPTO"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="cod_concepto" label="Cod. Concepto" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="descripcion"  label="Descripción"   visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchCodConcepto" width="100%" liveChange=".onSearchCodConcepto"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stCodConcepto"
+                entitySet="PNCND_COD_CONCEPTO"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Códigos de Concepto">
+
+                <Table id="_tblCodConcepto" fixedLayout="false" mode="None"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="20rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto","leadingProperty":"cod_concepto","sortProperty":"cod_concepto","filterProperty":"cod_concepto","width":"20rem"}'/>
+                            </customData>
+                            <Text text="Cod. Concepto"/>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"descripcion","leadingProperty":"descripcion","sortProperty":"descripcion","filterProperty":"descripcion"}'/>
+                            </customData>
+                            <Text text="Descripción"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{cod_concepto}" wrapping="false"/>
+                                <Text text="{descripcion}"  wrapping="false"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>

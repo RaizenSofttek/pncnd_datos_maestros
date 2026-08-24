@@ -1,0 +1,100 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbRelConcTipoDoc"
+            entitySet="PNCND_REL_CONC_TIPO_DOC"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="cod_concepto" label="Cod. Concepto" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="id_tipo_op"   label="Id. Tipo Op."  visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="id_tipo_doc"  label="Id. Tipo Doc." visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="linea_moa"    label="Linea MOA"     visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchRelConcTipoDoc" width="100%" liveChange=".onSearchRelConcTipoDoc"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
+        <OverflowToolbar design="Transparent">
+            <ToolbarSpacer/>
+            <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateRelConcTipoDoc"/>
+            <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaRelConcTipoDoc"/>
+        </OverflowToolbar>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stRelConcTipoDoc"
+                entitySet="PNCND_REL_CONC_TIPO_DOC"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Rel. Concepto - Tipo Documento">
+
+                <Table id="_tblRelConcTipoDoc" fixedLayout="false" mode="None"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="15rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto","leadingProperty":"cod_concepto","sortProperty":"cod_concepto","filterProperty":"cod_concepto","width":"15rem"}'/>
+                            </customData>
+                            <Text text="Cod. Concepto"/>
+                        </Column>
+                        <Column width="15rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_op","leadingProperty":"id_tipo_op","sortProperty":"id_tipo_op","filterProperty":"id_tipo_op","width":"15rem"}'/>
+                            </customData>
+                            <Text text="Id. Tipo Op."/>
+                        </Column>
+                        <Column width="12rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_doc","leadingProperty":"id_tipo_doc","sortProperty":"id_tipo_doc","filterProperty":"id_tipo_doc","width":"12rem"}'/>
+                            </customData>
+                            <Text text="Id. Tipo Doc."/>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"linea_moa","leadingProperty":"linea_moa","sortProperty":"linea_moa","filterProperty":"linea_moa"}'/>
+                            </customData>
+                            <Text text="Linea MOA"/>
+                        </Column>
+                        <Column width="8rem" hAlign="Center">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"acciones","sortProperty":null,"filterProperty":null}'/>
+                            </customData>
+                            <Text text="Acciones"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{cod_concepto}" wrapping="false"/>
+                                <Text text="{id_tipo_op}"   wrapping="false"/>
+                                <Text text="{id_tipo_doc}"  wrapping="false"/>
+                                <Text text="{linea_moa}"    wrapping="false"/>
+                                <HBox justifyContent="Center">
+                                    <Button icon="sap-icon://delete" press=".onEliminarRelConcTipoDoc" type="Reject"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>

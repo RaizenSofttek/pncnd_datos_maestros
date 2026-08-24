@@ -1,0 +1,111 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbRelConcMoa"
+            entitySet="PNCND_REL_CONC_MOA"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="cod_concepto"  label="Cod. Concepto" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="id_tipo_op"    label="Id. Tipo Op."  visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="linea_moa"     label="Linea MOA"     visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="nombre"        label="Nombre"        visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="clasificacion" label="Clasificación" visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchRelConcMoa" width="100%" liveChange=".onSearchRelConcMoa"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
+        <OverflowToolbar design="Transparent">
+            <ToolbarSpacer/>
+            <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaRelConcMoa"/>
+            <ToolbarSeparator/>
+            <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateRelConcMoa"/>
+            <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaRelConcMoa"/>
+        </OverflowToolbar>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stRelConcMoa"
+                entitySet="PNCND_REL_CONC_MOA"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Rel. Concepto - MOA">
+
+                <Table id="_tblRelConcMoa" fixedLayout="false" mode="MultiSelect"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="15rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto","leadingProperty":"cod_concepto","sortProperty":"cod_concepto","filterProperty":"cod_concepto","width":"15rem"}'/>
+                            </customData>
+                            <Text text="Cod. Concepto"/>
+                        </Column>
+                        <Column width="15rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_op","leadingProperty":"id_tipo_op","sortProperty":"id_tipo_op","filterProperty":"id_tipo_op","width":"15rem"}'/>
+                            </customData>
+                            <Text text="Id. Tipo Op."/>
+                        </Column>
+                        <Column width="12rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"linea_moa","leadingProperty":"linea_moa","sortProperty":"linea_moa","filterProperty":"linea_moa","width":"12rem"}'/>
+                            </customData>
+                            <Text text="Linea MOA"/>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"nombre","leadingProperty":"nombre","sortProperty":"nombre","filterProperty":"nombre"}'/>
+                            </customData>
+                            <Text text="Nombre"/>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"clasificacion","leadingProperty":"clasificacion","sortProperty":"clasificacion","filterProperty":"clasificacion"}'/>
+                            </customData>
+                            <Text text="Clasificación"/>
+                        </Column>
+                        <Column width="8rem" hAlign="Center">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"acciones","sortProperty":null,"filterProperty":null}'/>
+                            </customData>
+                            <Text text="Acciones"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{cod_concepto}"  wrapping="false"/>
+                                <Text text="{id_tipo_op}"    wrapping="false"/>
+                                <Text text="{linea_moa}"     wrapping="false"/>
+                                <Text text="{nombre}"        wrapping="false"/>
+                                <Text text="{clasificacion}" wrapping="false"/>
+                                <HBox justifyContent="Center">
+                                    <Button icon="sap-icon://edit"   press=".onEditarRelConcMoa"   class="sapUiTinyMarginEnd"/>
+                                    <Button icon="sap-icon://delete" press=".onEliminarRelConcMoa" type="Reject"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>
