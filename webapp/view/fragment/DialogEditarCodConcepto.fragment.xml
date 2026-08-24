@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout.form">
+
+    <Dialog id="dlgEditarCodConcepto" title="Editar Código de Concepto" contentWidth="420px">
+        <content>
+            <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                labelSpanL="4" labelSpanM="4" emptySpanL="0" columnsL="1" columnsM="1">
+                <l:content>
+                    <Label text="Cod. Concepto"/>
+                    <Input id="eConcCodConcepto" enabled="false"/>
+                    <Label text="Descripción"/>
+                    <Input id="eConcDescripcion" maxLength="40"/>
+                </l:content>
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Confirmar" type="Emphasized" press=".onConfirmarEditarCodConcepto"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarEditarCodConcepto"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

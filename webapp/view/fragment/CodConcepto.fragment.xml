@@ -21,6 +21,14 @@
         <SearchField id="sfSearchCodConcepto" width="100%" liveChange=".onSearchCodConcepto"
             placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
 
+        <OverflowToolbar design="Transparent">
+            <ToolbarSpacer/>
+            <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaCodConcepto"/>
+            <ToolbarSeparator/>
+            <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateCodConcepto"/>
+            <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaCodConcepto"/>
+        </OverflowToolbar>
+
         <VBox class="pncndTableScroll">
 
             <comp:SmartTable
@@ -34,7 +42,7 @@
                 showRowCount="true"
                 header="Códigos de Concepto">
 
-                <Table id="_tblCodConcepto" fixedLayout="false" mode="None"
+                <Table id="_tblCodConcepto" fixedLayout="false" mode="MultiSelect"
                        sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column width="20rem">
@@ -49,12 +57,22 @@
                             </customData>
                             <Text text="Descripción"/>
                         </Column>
+                        <Column width="8rem" hAlign="Center">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"acciones","sortProperty":null,"filterProperty":null}'/>
+                            </customData>
+                            <Text text="Acciones"/>
+                        </Column>
                     </columns>
                     <items>
                         <ColumnListItem>
                             <cells>
                                 <Text text="{cod_concepto}" wrapping="false"/>
                                 <Text text="{descripcion}"  wrapping="false"/>
+                                <HBox justifyContent="Center">
+                                    <Button icon="sap-icon://edit"   press=".onEditarCodConcepto"   class="sapUiTinyMarginEnd"/>
+                                    <Button icon="sap-icon://delete" press=".onEliminarCodConcepto" type="Reject"/>
+                                </HBox>
                             </cells>
                         </ColumnListItem>
                     </items>

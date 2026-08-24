@@ -272,7 +272,7 @@ sap.ui.define([
         _detectarEntidad: function (aHeaders) {
             var sDetectado = null;
             [this._funcion, this._ofventas, this._clientes,
-             this._relConcMoa, this._relConcTipoDoc].forEach(function (oUtil) {
+             this._relConcMoa, this._relConcTipoDoc, this._codConcepto].forEach(function (oUtil) {
                 var aEsp = oUtil.getColsCarga().map(function (o) { return o.header; });
                 if (aEsp.length === aHeaders.length &&
                     aEsp.every(function (h, i) { return h === aHeaders[i]; })) {
@@ -432,9 +432,16 @@ sap.ui.define([
         onCargaMasivaRelConcTipoDoc       : function ()  { this._relConcTipoDoc.onCargaMasiva(); },
 
         // ════════════════════════════════════════════════════════════════════
-        // DELEGATES — CodConcepto (solo lectura)
+        // DELEGATES — CodConcepto
         // ════════════════════════════════════════════════════════════════════
-        onSearchCodConcepto : function (e) { this._codConcepto.onSearch(e); },
+        onSearchCodConcepto             : function (e) { this._codConcepto.onSearch(e); },
+        onEditarCodConcepto             : function (e) { this._codConcepto.onEditar(e); },
+        onEliminarCodConcepto           : function (e) { this._codConcepto.onEliminar(e); },
+        onConfirmarEditarCodConcepto    : function ()  { this._codConcepto.onConfirmarEditar(); },
+        onCancelarEditarCodConcepto     : function ()  { this._codConcepto.onCancelarEditar(); },
+        onModMasivaCodConcepto          : function ()  { this._codConcepto.onModMasiva(); },
+        onDescargarTemplateCodConcepto  : function ()  { this._codConcepto.onDescargarTemplate(); },
+        onCargaMasivaCodConcepto        : function ()  { this._codConcepto.onCargaMasiva(); },
 
         // ════════════════════════════════════════════════════════════════════
         // FORMATTER
