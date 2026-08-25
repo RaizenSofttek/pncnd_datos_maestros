@@ -4,8 +4,10 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/model/json/JSONModel"
-], function (MessageBox, MessageToast, Fragment, Filter, FilterOperator, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/BusyDialog",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/validacion_pncnd_rel_conc_tipo_doc"
+], function (MessageBox, MessageToast, Fragment, Filter, FilterOperator, JSONModel, BusyDialog, Validacion) {
     "use strict";
 
     var ENTITY_SET = "PNCND_REL_CONC_TIPO_DOC";
@@ -149,23 +151,26 @@ sap.ui.define([
                         return;
                     }
 
-                    var aErrors = [];
-                    aData.forEach(function (oReg, idx) {
-                        COLS_CARGA.forEach(function (oCol) {
-                            if (!oReg[oCol.field]) {
-                                aErrors.push("Fila " + (idx + 3) + ": campo \"" + oCol.header + "\" es requerido");
+                    var oBusy = new BusyDialog({ title: "Validando archivo" });
+                    oBusy.open();
+                    Validacion.validar(aData, that._model(), function (sTexto) {
+                        oBusy.setText(sTexto);
+                    }).then(function (oResult) {
+                        oBusy.close();
+                        if (!oResult.valido) {
+                            var sMsg = oResult.errores.slice(0, 20).join("\n");
+                            if (oResult.errores.length > 20) {
+                                sMsg += "\n... y " + (oResult.errores.length - 20) + " error(es) más.";
                             }
-                        });
+                            MessageBox.error(sMsg, { title: "Errores de Validación — Carga interrumpida" });
+                            return;
+                        }
+                        that._oDlgCM.close();
+                        that._procesarRegistros(oResult.data);
+                    }).catch(function () {
+                        oBusy.close();
+                        MessageBox.error("No se pudo validar los datos. Verifique la conexión al servicio.");
                     });
-                    if (aErrors.length) {
-                        var sMsg = aErrors.slice(0, 20).join("\n");
-                        if (aErrors.length > 20) { sMsg += "\n... y " + (aErrors.length - 20) + " error(es) más."; }
-                        MessageBox.error(sMsg, { title: "Errores de Validación — Carga interrumpida" });
-                        return;
-                    }
-
-                    that._oDlgCM.close();
-                    that._procesarRegistros(aData);
                 } catch (err) {
                     MessageBox.error("Error al procesar el archivo: " + err.message);
                 }

@@ -1,0 +1,96 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbCodConceptoAudit"
+            entitySet="PNCND_COD_CONCEPTO_AUDIT"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchCodConceptoAudit" width="100%" liveChange=".onSearchCodConceptoAudit"
+            placeholder="Buscar en acción, usuario, concepto, descripción..." class="sapUiSmallMarginBottom"/>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stCodConceptoAudit"
+                entitySet="PNCND_COD_CONCEPTO_AUDIT"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Auditoría - Códigos de Concepto">
+
+                <Table id="_tblCodConceptoAudit" fixedLayout="true" mode="None"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="5rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","width":"5rem"}'/></customData>
+                            <Text text="ID"/>
+                        </Column>
+                        <Column width="8rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"accion","leadingProperty":"accion","sortProperty":"accion","width":"8rem"}'/></customData>
+                            <Text text="Acción"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_modificacion","leadingProperty":"fecha_modificacion","sortProperty":"fecha_modificacion","width":"14rem"}'/></customData>
+                            <Text text="Fecha Modificación"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"usuario_modificacion","leadingProperty":"usuario_modificacion","sortProperty":"usuario_modificacion","width":"16rem"}'/></customData>
+                            <Text text="Usuario"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto_anterior","leadingProperty":"cod_concepto_anterior","sortProperty":"cod_concepto_anterior","width":"16rem"}'/></customData>
+                            <Text text="Cod. Concepto (ant.)"/>
+                        </Column>
+                        <Column>
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"descripcion_anterior","leadingProperty":"descripcion_anterior","sortProperty":"descripcion_anterior"}'/></customData>
+                            <Text text="Descripción (ant.)"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto_nuevo","leadingProperty":"cod_concepto_nuevo","sortProperty":"cod_concepto_nuevo","width":"16rem"}'/></customData>
+                            <Text text="Cod. Concepto (nuevo)"/>
+                        </Column>
+                        <Column>
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"descripcion_nuevo","leadingProperty":"descripcion_nuevo","sortProperty":"descripcion_nuevo"}'/></customData>
+                            <Text text="Descripción (nuevo)"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{id}"                    wrapping="false"/>
+                                <Text text="{accion}"                wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
+                                <Text text="{usuario_modificacion}"  wrapping="false"/>
+                                <Text text="{cod_concepto_anterior}" wrapping="false"/>
+                                <Text text="{descripcion_anterior}"  wrapping="false"/>
+                                <Text text="{cod_concepto_nuevo}"    wrapping="false"/>
+                                <Text text="{descripcion_nuevo}"     wrapping="false"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>
