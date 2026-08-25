@@ -108,7 +108,6 @@ sap.ui.define([
             this._nFragLoad      = 0;
             this._sCurrentFragId = null;
             this._aplicarFiltroRoles();
-            this._logTablaMaestra();
         },
 
         _aplicarFiltroRoles: function () {
@@ -122,70 +121,6 @@ sap.ui.define([
 
             oModelUser.attachRequestCompleted(fnOnce);
             oModelUser.loadData("/user-api/attributes", null, true);
-        },
-
-        _logTablaMaestra: function () {
-            var that = this;
-            var oModel = this.getOwnerComponent().getModel();
-            console.log("[PNCND] Consultando PNCND_TABLAS_MAESTRAS para cargar el listbox...");
-
-            var bMetadataOK = false;
-            oModel.metadataLoaded().then(function () {
-                bMetadataOK = true;
-                console.log("[PNCND] Metadata OData cargada OK");
-            }).catch(function (oErr) {
-                bMetadataOK = true;
-                console.error("[PNCND] Metadata OData falló:", oErr && (oErr.message || JSON.stringify(oErr)));
-            });
-
-            oModel.attachMetadataFailed(function (oEvent) {
-                console.error("[PNCND] metadataFailed:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
-            });
-
-            setTimeout(function () {
-                if (!bMetadataOK) {
-                    console.error("[PNCND] Metadata sin respuesta tras 8s — el destination 'api-cap-portal-nc-nd-masterdata' en PRD probablemente apunta a una URL incorrecta o inaccesible");
-                }
-            }, 8000);
-
-            oModel.attachRequestFailed(function (oEvent) {
-                var sUrl = oEvent.getParameter("url") || "";
-                if (sUrl.indexOf("PNCND_TABLAS_MAESTRAS") !== -1) {
-                    console.error("[PNCND] Error al cargar PNCND_TABLAS_MAESTRAS:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
-                }
-            });
-
-            var nRetry = 0;
-            var fnAdjuntar = function () {
-                var oSelect  = that.byId("selTabla");
-                var oBinding = oSelect ? oSelect.getBinding("items") : null;
-                if (!oBinding) {
-                    if (++nRetry <= 20) { setTimeout(fnAdjuntar, 300); }
-                    else { console.warn("[PNCND] PNCND_TABLAS_MAESTRAS: binding no disponible tras 6s"); }
-                    return;
-                }
-                console.log("[PNCND] Binding encontrado, length:", oBinding.getLength());
-
-                var fnMostrar = function () {
-                    var aData = oBinding.getContexts().map(function (oCtx) { return oCtx.getObject(); });
-                    console.log("[PNCND] Datos recuperados de PNCND_TABLAS_MAESTRAS (" + aData.length + " entradas):");
-                    aData.forEach(function (oRow) { console.log("  →", JSON.stringify(oRow)); });
-                };
-
-                if (oBinding.getLength() > 0) {
-                    fnMostrar();
-                } else {
-                    oBinding.attachEventOnce("dataReceived", function (oEvent) {
-                        var oError = oEvent.getParameter("error");
-                        if (oError) {
-                            console.error("[PNCND] dataReceived error en PNCND_TABLAS_MAESTRAS:", oError.message || oError);
-                        } else {
-                            fnMostrar();
-                        }
-                    });
-                }
-            };
-            fnAdjuntar();
         },
 
         _checkRoles: function () {
