@@ -1,0 +1,126 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbRelConcMoaAudit"
+            entitySet="PNCND_REL_CONC_MOA_AUDIT"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchRelConcMoaAudit" width="100%" liveChange=".onSearchRelConcMoaAudit"
+            placeholder="Buscar en acción, usuario, concepto, tipo op., linea..." class="sapUiSmallMarginBottom"/>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stRelConcMoaAudit"
+                entitySet="PNCND_REL_CONC_MOA_AUDIT"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Auditoría - Rel. Concepto - MOA">
+
+                <Table id="_tblRelConcMoaAudit" fixedLayout="true" mode="None"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="5rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","width":"5rem"}'/></customData>
+                            <Text text="ID"/>
+                        </Column>
+                        <Column width="8rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"accion","leadingProperty":"accion","sortProperty":"accion","width":"8rem"}'/></customData>
+                            <Text text="Acción"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_modificacion","leadingProperty":"fecha_modificacion","sortProperty":"fecha_modificacion","width":"14rem"}'/></customData>
+                            <Text text="Fecha Modificación"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"usuario_modificacion","leadingProperty":"usuario_modificacion","sortProperty":"usuario_modificacion","width":"16rem"}'/></customData>
+                            <Text text="Usuario"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto_anterior","leadingProperty":"cod_concepto_anterior","sortProperty":"cod_concepto_anterior","width":"14rem"}'/></customData>
+                            <Text text="Concepto (ant.)"/>
+                        </Column>
+                        <Column width="12rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_op_anterior","leadingProperty":"id_tipo_op_anterior","sortProperty":"id_tipo_op_anterior","width":"12rem"}'/></customData>
+                            <Text text="Tipo Op. (ant.)"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"linea_moa_anterior","leadingProperty":"linea_moa_anterior","sortProperty":"linea_moa_anterior","width":"10rem"}'/></customData>
+                            <Text text="Linea MOA (ant.)"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"nombre_anterior","leadingProperty":"nombre_anterior","sortProperty":"nombre_anterior","width":"14rem"}'/></customData>
+                            <Text text="Nombre (ant.)"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"clasificacion_anterior","leadingProperty":"clasificacion_anterior","sortProperty":"clasificacion_anterior","width":"14rem"}'/></customData>
+                            <Text text="Clasificación (ant.)"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"cod_concepto_nuevo","leadingProperty":"cod_concepto_nuevo","sortProperty":"cod_concepto_nuevo","width":"14rem"}'/></customData>
+                            <Text text="Concepto (nuevo)"/>
+                        </Column>
+                        <Column width="12rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_op_nuevo","leadingProperty":"id_tipo_op_nuevo","sortProperty":"id_tipo_op_nuevo","width":"12rem"}'/></customData>
+                            <Text text="Tipo Op. (nuevo)"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"linea_moa_nuevo","leadingProperty":"linea_moa_nuevo","sortProperty":"linea_moa_nuevo","width":"10rem"}'/></customData>
+                            <Text text="Linea MOA (nuevo)"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"nombre_nuevo","leadingProperty":"nombre_nuevo","sortProperty":"nombre_nuevo","width":"14rem"}'/></customData>
+                            <Text text="Nombre (nuevo)"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"clasificacion_nuevo","leadingProperty":"clasificacion_nuevo","sortProperty":"clasificacion_nuevo","width":"14rem"}'/></customData>
+                            <Text text="Clasificación (nuevo)"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{id}"                     wrapping="false"/>
+                                <Text text="{accion}"                 wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
+                                <Text text="{usuario_modificacion}"   wrapping="false"/>
+                                <Text text="{cod_concepto_anterior}"  wrapping="false"/>
+                                <Text text="{id_tipo_op_anterior}"    wrapping="false"/>
+                                <Text text="{linea_moa_anterior}"     wrapping="false"/>
+                                <Text text="{nombre_anterior}"        wrapping="false"/>
+                                <Text text="{clasificacion_anterior}"  wrapping="false"/>
+                                <Text text="{cod_concepto_nuevo}"     wrapping="false"/>
+                                <Text text="{id_tipo_op_nuevo}"       wrapping="false"/>
+                                <Text text="{linea_moa_nuevo}"        wrapping="false"/>
+                                <Text text="{nombre_nuevo}"           wrapping="false"/>
+                                <Text text="{clasificacion_nuevo}"    wrapping="false"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>

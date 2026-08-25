@@ -9,10 +9,18 @@ sap.ui.define([
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_of_ventas_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_funcion_audit",
-    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes_audit"
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_clientes_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_moa",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_tipo_doc",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_moa_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_tipo_doc_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto_audit"
 ], function (Controller, MessageToast, Fragment, Filter, FilterOperator,
              AprobFuncion, AprobOfVentas, Clientes,
-             AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit) {
+             AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit,
+             RelConcMoa, RelConcTipoDoc, CodConcepto,
+             RelConcMoaAudit, RelConcTipoDocAudit, CodConceptoAudit) {
     "use strict";
 
     // Mapa de fragments por entidad
@@ -33,19 +41,49 @@ sap.ui.define([
             stId : "stClientes"
         },
         "PNCND_APROB_X_OF_VENTAS_AUDIT": {
-            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_OF_VENTAS_AUDIT",
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_aprob_x_of_ventas_audit",
             sfbId: "sfbOfVentasAudit",
             stId : "stOfVentasAudit"
         },
         "PNCND_APROB_X_FUNCION_AUDIT": {
-            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_APROB_X_FUNCION_AUDIT",
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_aprob_x_funcion_audit",
             sfbId: "sfbFuncionAudit",
             stId : "stFuncionAudit"
         },
         "PNCND_CLIENTES_AUDIT": {
-            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.PNCND_CLIENTES_AUDIT",
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_clientes_audit",
             sfbId: "sfbClientesAudit",
             stId : "stClientesAudit"
+        },
+        "PNCND_REL_CONC_MOA": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.RelConcMoa",
+            sfbId: "sfbRelConcMoa",
+            stId : "stRelConcMoa"
+        },
+        "PNCND_REL_CONC_TIPO_DOC": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.RelConcTipoDoc",
+            sfbId: "sfbRelConcTipoDoc",
+            stId : "stRelConcTipoDoc"
+        },
+        "PNCND_COD_CONCEPTO": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.CodConcepto",
+            sfbId: "sfbCodConcepto",
+            stId : "stCodConcepto"
+        },
+        "PNCND_REL_CONC_MOA_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_rel_conc_moa_audit",
+            sfbId: "sfbRelConcMoaAudit",
+            stId : "stRelConcMoaAudit"
+        },
+        "PNCND_REL_CONC_TIPO_DOC_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_rel_conc_tipo_doc_audit",
+            sfbId: "sfbRelConcTipoDocAudit",
+            stId : "stRelConcTipoDocAudit"
+        },
+        "PNCND_COD_CONCEPTO_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_cod_concepto_audit",
+            sfbId: "sfbCodConceptoAudit",
+            stId : "stCodConceptoAudit"
         }
     };
 
@@ -59,12 +97,17 @@ sap.ui.define([
             this._ofventasAudit  = new AprobOfVentasAudit(this);
             this._funcionAudit   = new AprobFuncionAudit(this);
             this._clientesAudit  = new ClientesAudit(this);
+            this._relConcMoa        = new RelConcMoa(this);
+            this._relConcTipoDoc    = new RelConcTipoDoc(this);
+            this._codConcepto       = new CodConcepto(this);
+            this._relConcMoaAudit   = new RelConcMoaAudit(this);
+            this._relConcTipoDocAudit = new RelConcTipoDocAudit(this);
+            this._codConceptoAudit  = new CodConceptoAudit(this);
             this._activeUtil     = null;
             this._sCurrentEntity = null;
             this._nFragLoad      = 0;
             this._sCurrentFragId = null;
             this._aplicarFiltroRoles();
-            this._logTablaMaestra();
         },
 
         _aplicarFiltroRoles: function () {
@@ -78,70 +121,6 @@ sap.ui.define([
 
             oModelUser.attachRequestCompleted(fnOnce);
             oModelUser.loadData("/user-api/attributes", null, true);
-        },
-
-        _logTablaMaestra: function () {
-            var that = this;
-            var oModel = this.getOwnerComponent().getModel();
-            console.log("[PNCND] Consultando PNCND_TABLAS_MAESTRAS para cargar el listbox...");
-
-            var bMetadataOK = false;
-            oModel.metadataLoaded().then(function () {
-                bMetadataOK = true;
-                console.log("[PNCND] Metadata OData cargada OK");
-            }).catch(function (oErr) {
-                bMetadataOK = true;
-                console.error("[PNCND] Metadata OData falló:", oErr && (oErr.message || JSON.stringify(oErr)));
-            });
-
-            oModel.attachMetadataFailed(function (oEvent) {
-                console.error("[PNCND] metadataFailed:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
-            });
-
-            setTimeout(function () {
-                if (!bMetadataOK) {
-                    console.error("[PNCND] Metadata sin respuesta tras 8s — el destination 'api-cap-portal-nc-nd-masterdata' en PRD probablemente apunta a una URL incorrecta o inaccesible");
-                }
-            }, 8000);
-
-            oModel.attachRequestFailed(function (oEvent) {
-                var sUrl = oEvent.getParameter("url") || "";
-                if (sUrl.indexOf("PNCND_TABLAS_MAESTRAS") !== -1) {
-                    console.error("[PNCND] Error al cargar PNCND_TABLAS_MAESTRAS:", oEvent.getParameter("message"), oEvent.getParameter("statusCode"), oEvent.getParameter("responseText"));
-                }
-            });
-
-            var nRetry = 0;
-            var fnAdjuntar = function () {
-                var oSelect  = that.byId("selTabla");
-                var oBinding = oSelect ? oSelect.getBinding("items") : null;
-                if (!oBinding) {
-                    if (++nRetry <= 20) { setTimeout(fnAdjuntar, 300); }
-                    else { console.warn("[PNCND] PNCND_TABLAS_MAESTRAS: binding no disponible tras 6s"); }
-                    return;
-                }
-                console.log("[PNCND] Binding encontrado, length:", oBinding.getLength());
-
-                var fnMostrar = function () {
-                    var aData = oBinding.getContexts().map(function (oCtx) { return oCtx.getObject(); });
-                    console.log("[PNCND] Datos recuperados de PNCND_TABLAS_MAESTRAS (" + aData.length + " entradas):");
-                    aData.forEach(function (oRow) { console.log("  →", JSON.stringify(oRow)); });
-                };
-
-                if (oBinding.getLength() > 0) {
-                    fnMostrar();
-                } else {
-                    oBinding.attachEventOnce("dataReceived", function (oEvent) {
-                        var oError = oEvent.getParameter("error");
-                        if (oError) {
-                            console.error("[PNCND] dataReceived error en PNCND_TABLAS_MAESTRAS:", oError.message || oError);
-                        } else {
-                            fnMostrar();
-                        }
-                    });
-                }
-            };
-            fnAdjuntar();
         },
 
         _checkRoles: function () {
@@ -249,7 +228,8 @@ sap.ui.define([
         // ── Helper compartido: detectar entidad por headers de archivo ───────
         _detectarEntidad: function (aHeaders) {
             var sDetectado = null;
-            [this._funcion, this._ofventas, this._clientes].forEach(function (oUtil) {
+            [this._funcion, this._ofventas, this._clientes,
+             this._relConcMoa, this._relConcTipoDoc, this._codConcepto].forEach(function (oUtil) {
                 var aEsp = oUtil.getColsCarga().map(function (o) { return o.header; });
                 if (aEsp.length === aHeaders.length &&
                     aEsp.every(function (h, i) { return h === aHeaders[i]; })) {
@@ -387,6 +367,53 @@ sap.ui.define([
         // DELEGATES — ClientesAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
         onSearchClientesAudit : function (e) { this._clientesAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — RelConcMoa
+        // ════════════════════════════════════════════════════════════════════
+        onSearchRelConcMoa              : function (e) { this._relConcMoa.onSearch(e); },
+        onEditarRelConcMoa              : function (e) { this._relConcMoa.onEditar(e); },
+        onEliminarRelConcMoa            : function (e) { this._relConcMoa.onEliminar(e); },
+        onConfirmarEditarRelConcMoa     : function ()  { this._relConcMoa.onConfirmarEditar(); },
+        onCancelarEditarRelConcMoa      : function ()  { this._relConcMoa.onCancelarEditar(); },
+        onModMasivaRelConcMoa           : function ()  { this._relConcMoa.onModMasiva(); },
+        onDescargarTemplateRelConcMoa   : function ()  { this._relConcMoa.onDescargarTemplate(); },
+        onCargaMasivaRelConcMoa         : function ()  { this._relConcMoa.onCargaMasiva(); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — RelConcTipoDoc
+        // ════════════════════════════════════════════════════════════════════
+        onSearchRelConcTipoDoc            : function (e) { this._relConcTipoDoc.onSearch(e); },
+        onEliminarRelConcTipoDoc          : function (e) { this._relConcTipoDoc.onEliminar(e); },
+        onDescargarTemplateRelConcTipoDoc : function ()  { this._relConcTipoDoc.onDescargarTemplate(); },
+        onCargaMasivaRelConcTipoDoc       : function ()  { this._relConcTipoDoc.onCargaMasiva(); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — RelConcMoaAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchRelConcMoaAudit     : function (e) { this._relConcMoaAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — RelConcTipoDocAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchRelConcTipoDocAudit : function (e) { this._relConcTipoDocAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — CodConceptoAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchCodConceptoAudit    : function (e) { this._codConceptoAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — CodConcepto
+        // ════════════════════════════════════════════════════════════════════
+        onSearchCodConcepto             : function (e) { this._codConcepto.onSearch(e); },
+        onEditarCodConcepto             : function (e) { this._codConcepto.onEditar(e); },
+        onEliminarCodConcepto           : function (e) { this._codConcepto.onEliminar(e); },
+        onConfirmarEditarCodConcepto    : function ()  { this._codConcepto.onConfirmarEditar(); },
+        onCancelarEditarCodConcepto     : function ()  { this._codConcepto.onCancelarEditar(); },
+        onModMasivaCodConcepto          : function ()  { this._codConcepto.onModMasiva(); },
+        onDescargarTemplateCodConcepto  : function ()  { this._codConcepto.onDescargarTemplate(); },
+        onCargaMasivaCodConcepto        : function ()  { this._codConcepto.onCargaMasiva(); },
 
         // ════════════════════════════════════════════════════════════════════
         // FORMATTER

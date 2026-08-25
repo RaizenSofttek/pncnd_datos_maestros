@@ -1,0 +1,182 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbClientesAudit"
+            entitySet="PNCND_CLIENTES_AUDIT"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación"  visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"             visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchClientesAudit" width="100%" liveChange=".onSearchClientesAudit"
+            placeholder="Buscar en acción, usuario, nro. cliente, nombre..." class="sapUiSmallMarginBottom"/>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stClientesAudit"
+                entitySet="PNCND_CLIENTES_AUDIT"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Auditoría - Clientes">
+
+                <Table id="_tblClientesAudit" fixedLayout="true" mode="None"
+                       sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column width="5rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","filterProperty":"id","width":"5rem"}'/>
+                            </customData>
+                            <Text text="ID"/>
+                        </Column>
+                        <Column width="8rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"accion","leadingProperty":"accion","sortProperty":"accion","filterProperty":"accion","width":"8rem"}'/>
+                            </customData>
+                            <Text text="Acción"/>
+                        </Column>
+                        <Column width="14rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"fecha_modificacion","leadingProperty":"fecha_modificacion","sortProperty":"fecha_modificacion","filterProperty":"fecha_modificacion","width":"14rem"}'/>
+                            </customData>
+                            <Text text="Fecha Modificación"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"usuario_modificacion","leadingProperty":"usuario_modificacion","sortProperty":"usuario_modificacion","filterProperty":"usuario_modificacion","width":"16rem"}'/>
+                            </customData>
+                            <Text text="Usuario"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"kunnr_anterior","leadingProperty":"kunnr_anterior","sortProperty":"kunnr_anterior","filterProperty":"kunnr_anterior","width":"10rem"}'/>
+                            </customData>
+                            <Text text="Nro. Cliente (ant.)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"vkorg_anterior","leadingProperty":"vkorg_anterior","sortProperty":"vkorg_anterior","filterProperty":"vkorg_anterior","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Org.V. (ant.)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"vtweg_anterior","leadingProperty":"vtweg_anterior","sortProperty":"vtweg_anterior","filterProperty":"vtweg_anterior","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Canal (ant.)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"spart_anterior","leadingProperty":"spart_anterior","sortProperty":"spart_anterior","filterProperty":"spart_anterior","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Sector (ant.)"/>
+                        </Column>
+                        <Column width="9rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"vkbur_anterior","leadingProperty":"vkbur_anterior","sortProperty":"vkbur_anterior","filterProperty":"vkbur_anterior","width":"9rem"}'/>
+                            </customData>
+                            <Text text="Of.V. (ant.)"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"bran2_anterior","leadingProperty":"bran2_anterior","sortProperty":"bran2_anterior","filterProperty":"bran2_anterior","width":"10rem"}'/>
+                            </customData>
+                            <Text text="División (ant.)"/>
+                        </Column>
+                        <Column width="20rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"name1_anterior","leadingProperty":"name1_anterior","sortProperty":"name1_anterior","filterProperty":"name1_anterior","width":"20rem"}'/>
+                            </customData>
+                            <Text text="Nombre (ant.)"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"kunnr_nuevo","leadingProperty":"kunnr_nuevo","sortProperty":"kunnr_nuevo","filterProperty":"kunnr_nuevo","width":"10rem"}'/>
+                            </customData>
+                            <Text text="Nro. Cliente (nuevo)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"vkorg_nuevo","leadingProperty":"vkorg_nuevo","sortProperty":"vkorg_nuevo","filterProperty":"vkorg_nuevo","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Org.V. (nuevo)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"vtweg_nuevo","leadingProperty":"vtweg_nuevo","sortProperty":"vtweg_nuevo","filterProperty":"vtweg_nuevo","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Canal (nuevo)"/>
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"spart_nuevo","leadingProperty":"spart_nuevo","sortProperty":"spart_nuevo","filterProperty":"spart_nuevo","width":"7rem"}'/>
+                            </customData>
+                            <Text text="Sector (nuevo)"/>
+                        </Column>
+                        <Column width="9rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"vkbur_nuevo","leadingProperty":"vkbur_nuevo","sortProperty":"vkbur_nuevo","filterProperty":"vkbur_nuevo","width":"9rem"}'/>
+                            </customData>
+                            <Text text="Of.V. (nuevo)"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"bran2_nuevo","leadingProperty":"bran2_nuevo","sortProperty":"bran2_nuevo","filterProperty":"bran2_nuevo","width":"10rem"}'/>
+                            </customData>
+                            <Text text="División (nuevo)"/>
+                        </Column>
+                        <Column width="20rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"name1_nuevo","leadingProperty":"name1_nuevo","sortProperty":"name1_nuevo","filterProperty":"name1_nuevo","width":"20rem"}'/>
+                            </customData>
+                            <Text text="Nombre (nuevo)"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{id}"                   wrapping="false"/>
+                                <Text text="{accion}"               wrapping="false"/>
+                                <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
+                                <Text text="{usuario_modificacion}" wrapping="false"/>
+                                <Text text="{kunnr_anterior}"       wrapping="false"/>
+                                <Text text="{vkorg_anterior}"       wrapping="false"/>
+                                <Text text="{vtweg_anterior}"       wrapping="false"/>
+                                <Text text="{spart_anterior}"       wrapping="false"/>
+                                <Text text="{vkbur_anterior}"       wrapping="false"/>
+                                <Text text="{bran2_anterior}"       wrapping="false"/>
+                                <Text text="{name1_anterior}"       wrapping="false"/>
+                                <Text text="{kunnr_nuevo}"          wrapping="false"/>
+                                <Text text="{vkorg_nuevo}"          wrapping="false"/>
+                                <Text text="{vtweg_nuevo}"          wrapping="false"/>
+                                <Text text="{spart_nuevo}"          wrapping="false"/>
+                                <Text text="{vkbur_nuevo}"          wrapping="false"/>
+                                <Text text="{bran2_nuevo}"          wrapping="false"/>
+                                <Text text="{name1_nuevo}"          wrapping="false"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>

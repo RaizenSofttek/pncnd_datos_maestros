@@ -1,0 +1,32 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout.form">
+
+    <Dialog id="dlgEditarRelConcMoa" title="Editar Rel. Concepto - MOA" contentWidth="480px">
+        <content>
+            <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                labelSpanL="4" labelSpanM="4" emptySpanL="0" columnsL="1" columnsM="1">
+                <l:content>
+                    <Label text="Cod. Concepto"/>
+                    <Input id="eMoaCodConcepto" enabled="false"/>
+                    <Label text="Id. Tipo Op."/>
+                    <Input id="eMoaIdTipoOp"   enabled="false"/>
+                    <Label text="Linea MOA"/>
+                    <Input id="eMoaLineaMoa"   enabled="false"/>
+                    <Label text="Nombre"/>
+                    <Input id="eMoaNombre"      maxLength="40"/>
+                    <Label text="Clasificación"/>
+                    <Input id="eMoaClasificacion" maxLength="40"/>
+                </l:content>
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Confirmar" type="Emphasized" press=".onConfirmarEditarRelConcMoa"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarEditarRelConcMoa"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>
