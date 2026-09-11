@@ -36,7 +36,7 @@
                 header="Auditoría - Aprobadores por Oficina de Ventas">
 
                 <Table id="_tblOfVentasAudit" fixedLayout="true" mode="None"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="5rem">
                             <customData>

@@ -36,7 +36,7 @@
                 header="Auditoría - Rel. Concepto - Tipo Documento">
 
                 <Table id="_tblRelConcTipoDocAudit" fixedLayout="true" mode="None"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="5rem">
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","width":"5rem"}'/></customData>

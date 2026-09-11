@@ -45,7 +45,7 @@
                 header="Aprobadores por Función">
 
                 <Table id="_tblFuncion" fixedLayout="false" mode="MultiSelect"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="15rem">
                             <customData>

@@ -49,7 +49,7 @@
                 header="Aprobadores por Oficina de Ventas">
 
                 <Table id="_tblOfVentas" fixedLayout="false" mode="MultiSelect"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="7rem">
                             <customData>

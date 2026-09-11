@@ -180,7 +180,10 @@ sap.ui.define([
                     aControls.forEach(function (oCtrl) { oContainer.addItem(oCtrl); });
                     var oSFB = mCfg.sfbId ? Fragment.byId(sFragId, mCfg.sfbId) : null;
                     var oST  = Fragment.byId(sFragId, mCfg.stId);
-                    if (oSFB && oST) { oST.setSmartFilterId(oSFB.getId()); }
+                    if (oSFB && oST) { 
+                        oST.setSmartFilterId(oSFB.getId());
+                        oST.rebindTable(true)
+                    }
                     that._sCurrentFragId = sFragId;
                     that._sCurrentEntity = sEntitySet;
                     // Defer so que el motor de rendering de UI5 vuelque el DOM antes de medir

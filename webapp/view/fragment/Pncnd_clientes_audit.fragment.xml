@@ -36,7 +36,7 @@
                 header="Auditoría - Clientes">
 
                 <Table id="_tblClientesAudit" fixedLayout="true" mode="None"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="5rem">
                             <customData>

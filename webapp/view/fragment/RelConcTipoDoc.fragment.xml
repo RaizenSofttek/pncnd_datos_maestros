@@ -43,7 +43,7 @@
                 header="Rel. Concepto - Tipo Documento">
 
                 <Table id="_tblRelConcTipoDoc" fixedLayout="false" mode="None"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="15rem">
                             <customData>

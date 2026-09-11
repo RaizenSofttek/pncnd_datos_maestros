@@ -43,7 +43,7 @@
                 header="Códigos de Concepto">
 
                 <Table id="_tblCodConcepto" fixedLayout="false" mode="MultiSelect"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="20rem">
                             <customData>

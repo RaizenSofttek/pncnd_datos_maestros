@@ -46,7 +46,7 @@
                 header="Rel. Concepto - MOA">
 
                 <Table id="_tblRelConcMoa" fixedLayout="false" mode="MultiSelect"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="15rem">
                             <customData>

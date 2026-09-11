@@ -48,7 +48,7 @@
                 header="Clientes">
 
                 <Table id="_tblClientes" fixedLayout="false" mode="MultiSelect"
-                       sticky="ColumnHeaders,HeaderToolbar">
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
                         <Column width="12rem">
                             <customData>
