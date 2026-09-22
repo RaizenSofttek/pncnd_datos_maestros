@@ -15,12 +15,14 @@ sap.ui.define([
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_moa_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_tipo_doc_audit",
-    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto_audit"
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_propuesta_audit"
 ], function (Controller, MessageToast, Fragment, Filter, FilterOperator,
              AprobFuncion, AprobOfVentas, Clientes,
              AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit,
              RelConcMoa, RelConcTipoDoc, CodConcepto,
-             RelConcMoaAudit, RelConcTipoDocAudit, CodConceptoAudit) {
+             RelConcMoaAudit, RelConcTipoDocAudit, CodConceptoAudit,
+             AprobXPropuestaAudit) {
     "use strict";
 
     // Mapa de fragments por entidad
@@ -84,6 +86,11 @@ sap.ui.define([
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_cod_concepto_audit",
             sfbId: "sfbCodConceptoAudit",
             stId : "stCodConceptoAudit"
+        },
+        "PNCND_APROB_X_PROPUESTA_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_aprob_x_propuesta_audit",
+            sfbId: "sfbAprobXPropuestaAudit",
+            stId : "stAprobXPropuestaAudit"
         }
     };
 
@@ -103,6 +110,7 @@ sap.ui.define([
             this._relConcMoaAudit   = new RelConcMoaAudit(this);
             this._relConcTipoDocAudit = new RelConcTipoDocAudit(this);
             this._codConceptoAudit  = new CodConceptoAudit(this);
+            this._aprobXPropuestaAudit = new AprobXPropuestaAudit(this);
             this._activeUtil     = null;
             this._sCurrentEntity = null;
             this._nFragLoad      = 0;
@@ -405,6 +413,11 @@ sap.ui.define([
         // DELEGATES — CodConceptoAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
         onSearchCodConceptoAudit    : function (e) { this._codConceptoAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — AprobXPropuestaAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchAprobXPropuestaAudit : function (e) { this._aprobXPropuestaAudit.onSearch(e); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — CodConcepto
