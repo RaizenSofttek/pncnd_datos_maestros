@@ -13,11 +13,11 @@
             showRestoreOnFB="true"
             showFilterConfiguration="false">
             <sfb:controlConfiguration>
-                <sfb:ControlConfiguration key="id_propuesta"         label="Nro. Propuesta"     visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="id_lote"              label="Nro. Lote"          visibleInAdvancedArea="true"/>
                 <sfb:ControlConfiguration key="accion"               label="Acción"             visibleInAdvancedArea="true"/>
                 <sfb:ControlConfiguration key="fecha_modificacion"   label="Fecha Modificación" visibleInAdvancedArea="true"/>
-                <sfb:ControlConfiguration key="usuario_modificacion" label="Usuario"            visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="usuario_modificacion" label="Modificado por"     visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="id_propuesta"         label="Propuesta"          visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="id_lote"              label="Lote"               visibleInAdvancedArea="true"/>
             </sfb:controlConfiguration>
         </sfb:SmartFilterBar>
 
@@ -40,29 +40,25 @@
                 <Table id="_tblAprobXPropuestaAudit" fixedLayout="true" mode="None"
                        sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
                     <columns>
-                        <Column width="5rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","width":"5rem"}'/></customData>
-                            <Text text="ID" wrapping="false"/>
-                        </Column>
-                        <Column width="8rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"accion","leadingProperty":"accion","sortProperty":"accion","width":"8rem"}'/></customData>
+                        <Column width="9rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"accion","leadingProperty":"accion","sortProperty":"accion","filterProperty":"accion","width":"9rem"}'/></customData>
                             <Text text="Acción" wrapping="false"/>
                         </Column>
                         <Column width="14rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_modificacion","leadingProperty":"fecha_modificacion","sortProperty":"fecha_modificacion","width":"14rem"}'/></customData>
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_modificacion","leadingProperty":"fecha_modificacion","sortProperty":"fecha_modificacion","filterProperty":"fecha_modificacion","width":"14rem"}'/></customData>
                             <Text text="Fecha Modificación" wrapping="false"/>
                         </Column>
-                        <Column width="16rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"usuario_modificacion","leadingProperty":"usuario_modificacion","sortProperty":"usuario_modificacion","width":"16rem"}'/></customData>
-                            <Text text="Usuario" wrapping="false"/>
+                        <Column width="18rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"usuario_modificacion","leadingProperty":"usuario_modificacion","sortProperty":"usuario_modificacion","filterProperty":"usuario_modificacion","width":"18rem"}'/></customData>
+                            <Text text="Modificado por" wrapping="false"/>
                         </Column>
                         <Column width="8rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_propuesta","leadingProperty":"id_propuesta","sortProperty":"id_propuesta","width":"8rem"}'/></customData>
-                            <Text text="Nro. Propuesta" wrapping="false"/>
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_propuesta","leadingProperty":"id_propuesta","sortProperty":"id_propuesta","filterProperty":"id_propuesta","width":"8rem"}'/></customData>
+                            <Text text="Propuesta" wrapping="false"/>
                         </Column>
-                        <Column width="7rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_lote","leadingProperty":"id_lote","sortProperty":"id_lote","width":"7rem"}'/></customData>
-                            <Text text="Nro. Lote" wrapping="false"/>
+                        <Column width="6rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_lote","leadingProperty":"id_lote","sortProperty":"id_lote","filterProperty":"id_lote","width":"6rem"}'/></customData>
+                            <Text text="Lote" wrapping="false"/>
                         </Column>
                         <Column width="5rem">
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"nivel","leadingProperty":"nivel","sortProperty":"nivel","width":"5rem"}'/></customData>
@@ -72,67 +68,72 @@
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"orden","leadingProperty":"orden","sortProperty":"orden","width":"5rem"}'/></customData>
                             <Text text="Orden" wrapping="false"/>
                         </Column>
-                        <Column width="8rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob_anterior","leadingProperty":"id_tipo_aprob_anterior","sortProperty":"id_tipo_aprob_anterior","width":"8rem"}'/></customData>
-                            <Text text="Tipo (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="18rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"mail_anterior","leadingProperty":"mail_anterior","sortProperty":"mail_anterior","width":"18rem"}'/></customData>
-                            <Text text="Mail (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="18rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"mail_mod_anterior","leadingProperty":"mail_mod_anterior","sortProperty":"mail_mod_anterior","width":"18rem"}'/></customData>
-                            <Text text="Mail Modif. (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="12rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_mod_anterior","leadingProperty":"fecha_mod_anterior","sortProperty":"fecha_mod_anterior","width":"12rem"}'/></customData>
-                            <Text text="Fecha Modif. (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="9rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"aprobado_anterior","leadingProperty":"aprobado_anterior","sortProperty":"aprobado_anterior","width":"7rem"}'/></customData>
-                            <Text text="Aprobado (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="12rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_oper_anterior","leadingProperty":"fecha_oper_anterior","sortProperty":"fecha_oper_anterior","width":"12rem"}'/></customData>
-                            <Text text="Fecha Oper. (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="9rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"hora_oper_anterior","leadingProperty":"hora_oper_anterior","sortProperty":"hora_oper_anterior","width":"9rem"}'/></customData>
-                            <Text text="Hora Oper. (ant.)" wrapping="false"/>
-                        </Column>
-                        <Column width="8rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob_nuevo","leadingProperty":"id_tipo_aprob_nuevo","sortProperty":"id_tipo_aprob_nuevo","width":"8rem"}'/></customData>
-                            <Text text="Tipo (nuevo)" wrapping="false"/>
+                        <Column width="15rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob_nuevo","leadingProperty":"id_tipo_aprob_nuevo","sortProperty":"id_tipo_aprob_nuevo","width":"15rem"}'/></customData>
+                            <Text text="Tipo Aprobador (Actual)" wrapping="false"/>
                         </Column>
                         <Column width="18rem">
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"mail_nuevo","leadingProperty":"mail_nuevo","sortProperty":"mail_nuevo","width":"18rem"}'/></customData>
-                            <Text text="Mail (nuevo)" wrapping="false"/>
+                            <Text text="Mail (Actual)" wrapping="false"/>
+                        </Column>
+                        <Column width="10rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"aprobado_nuevo","leadingProperty":"aprobado_nuevo","sortProperty":"aprobado_nuevo","width":"10rem"}'/></customData>
+                            <Text text="Estado (Actual)" wrapping="false"/>
+                        </Column>
+                        <Column width="16rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob_anterior","leadingProperty":"id_tipo_aprob_anterior","sortProperty":"id_tipo_aprob_anterior","width":"16rem"}'/></customData>
+                            <Text text="Tipo Aprobador (Anterior)" wrapping="false"/>
                         </Column>
                         <Column width="18rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"mail_anterior","leadingProperty":"mail_anterior","sortProperty":"mail_anterior","width":"18rem"}'/></customData>
+                            <Text text="Mail (Anterior)" wrapping="false"/>
+                        </Column>
+                        <Column width="11rem">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"aprobado_anterior","leadingProperty":"aprobado_anterior","sortProperty":"aprobado_anterior","width":"11rem"}'/></customData>
+                            <Text text="Estado (Anterior)" wrapping="false"/>
+                        </Column>
+
+                        <!-- Ocultas por defecto: siguen disponibles desde el panel de configuración -->
+                        <Column width="5rem" visible="false">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"id","leadingProperty":"id","sortProperty":"id","width":"5rem"}'/></customData>
+                            <Text text="ID" wrapping="false"/>
+                        </Column>
+                        <Column width="18rem" visible="false">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"mail_mod_anterior","leadingProperty":"mail_mod_anterior","sortProperty":"mail_mod_anterior","width":"18rem"}'/></customData>
+                            <Text text="Mail Modif. (Anterior)" wrapping="false"/>
+                        </Column>
+                        <Column width="12rem" visible="false">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_mod_anterior","leadingProperty":"fecha_mod_anterior","sortProperty":"fecha_mod_anterior","width":"12rem"}'/></customData>
+                            <Text text="Fecha Modif. (Anterior)" wrapping="false"/>
+                        </Column>
+                        <Column width="12rem" visible="false">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_oper_anterior","leadingProperty":"fecha_oper_anterior","sortProperty":"fecha_oper_anterior","width":"12rem"}'/></customData>
+                            <Text text="Fecha Oper. (Anterior)" wrapping="false"/>
+                        </Column>
+                        <Column width="10rem" visible="false">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"hora_oper_anterior","leadingProperty":"hora_oper_anterior","sortProperty":"hora_oper_anterior","width":"10rem"}'/></customData>
+                            <Text text="Hora Oper. (Anterior)" wrapping="false"/>
+                        </Column>
+                        <Column width="18rem" visible="false">
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"mail_mod_nuevo","leadingProperty":"mail_mod_nuevo","sortProperty":"mail_mod_nuevo","width":"18rem"}'/></customData>
-                            <Text text="Mail Modif. (nuevo)" wrapping="false"/>
+                            <Text text="Mail Modif. (Actual)" wrapping="false"/>
                         </Column>
-                        <Column width="12rem">
+                        <Column width="12rem" visible="false">
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_mod_nuevo","leadingProperty":"fecha_mod_nuevo","sortProperty":"fecha_mod_nuevo","width":"12rem"}'/></customData>
-                            <Text text="Fecha Modif. (nuevo)" wrapping="false"/>
+                            <Text text="Fecha Modif. (Actual)" wrapping="false"/>
                         </Column>
-                        <Column width="9rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"aprobado_nuevo","leadingProperty":"aprobado_nuevo","sortProperty":"aprobado_nuevo","width":"7rem"}'/></customData>
-                            <Text text="Aprobado (nuevo)" wrapping="false"/>
-                        </Column>
-                        <Column width="12rem">
+                        <Column width="12rem" visible="false">
                             <customData><core:CustomData key="p13nData" value='\{"columnKey":"fecha_oper_nuevo","leadingProperty":"fecha_oper_nuevo","sortProperty":"fecha_oper_nuevo","width":"12rem"}'/></customData>
-                            <Text text="Fecha Oper. (nuevo)" wrapping="false"/>
+                            <Text text="Fecha Oper. (Actual)" wrapping="false"/>
                         </Column>
-                        <Column width="9rem">
-                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"hora_oper_nuevo","leadingProperty":"hora_oper_nuevo","sortProperty":"hora_oper_nuevo","width":"9rem"}'/></customData>
-                            <Text text="Hora Oper. (nuevo)" wrapping="false"/>
+                        <Column width="10rem" visible="false">
+                            <customData><core:CustomData key="p13nData" value='\{"columnKey":"hora_oper_nuevo","leadingProperty":"hora_oper_nuevo","sortProperty":"hora_oper_nuevo","width":"10rem"}'/></customData>
+                            <Text text="Hora Oper. (Actual)" wrapping="false"/>
                         </Column>
                     </columns>
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="{id}"                      wrapping="false"/>
                                 <Text text="{accion}"                  wrapping="false"/>
                                 <Text text="{path:'fecha_modificacion', formatter:'.formatFecha'}" wrapping="false"/>
                                 <Text text="{usuario_modificacion}"    wrapping="false"/>
@@ -140,18 +141,20 @@
                                 <Text text="{id_lote}"                 wrapping="false"/>
                                 <Text text="{nivel}"                   wrapping="false"/>
                                 <Text text="{orden}"                   wrapping="false"/>
-                                <Text text="{id_tipo_aprob_anterior}"  wrapping="false"/>
-                                <Text text="{mail_anterior}"           wrapping="false"/>
-                                <Text text="{mail_mod_anterior}"       wrapping="false"/>
-                                <Text text="{fecha_mod_anterior}"      wrapping="false"/>
-                                <Text text="{aprobado_anterior}"       wrapping="false"/>
-                                <Text text="{fecha_oper_anterior}"     wrapping="false"/>
-                                <Text text="{hora_oper_anterior}"      wrapping="false"/>
                                 <Text text="{id_tipo_aprob_nuevo}"     wrapping="false"/>
                                 <Text text="{mail_nuevo}"              wrapping="false"/>
+                                <Text text="{aprobado_nuevo}"          wrapping="false"/>
+                                <Text text="{id_tipo_aprob_anterior}"  wrapping="false"/>
+                                <Text text="{mail_anterior}"           wrapping="false"/>
+                                <Text text="{aprobado_anterior}"       wrapping="false"/>
+
+                                <Text text="{id}"                      wrapping="false"/>
+                                <Text text="{mail_mod_anterior}"       wrapping="false"/>
+                                <Text text="{fecha_mod_anterior}"      wrapping="false"/>
+                                <Text text="{fecha_oper_anterior}"     wrapping="false"/>
+                                <Text text="{hora_oper_anterior}"      wrapping="false"/>
                                 <Text text="{mail_mod_nuevo}"          wrapping="false"/>
                                 <Text text="{fecha_mod_nuevo}"         wrapping="false"/>
-                                <Text text="{aprobado_nuevo}"          wrapping="false"/>
                                 <Text text="{fecha_oper_nuevo}"        wrapping="false"/>
                                 <Text text="{hora_oper_nuevo}"         wrapping="false"/>
                             </cells>
