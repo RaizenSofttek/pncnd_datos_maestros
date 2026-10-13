@@ -29,6 +29,7 @@
                 entitySet="PNCND_REL_CONC_TIPO_DOC_AUDIT"
                 tableType="ResponsiveTable"
                 enableExport="true"
+                beforeExport=".onBeforeExportSmartTable"
                 useVariantManagement="false"
                 useTablePersonalisation="true"
                 enableAutoBinding="true"

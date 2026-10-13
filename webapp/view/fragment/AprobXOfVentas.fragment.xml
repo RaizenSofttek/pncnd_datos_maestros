@@ -42,6 +42,7 @@
                 entitySet="PNCND_APROB_X_OF_VENTAS"
                 tableType="ResponsiveTable"
                 enableExport="true"
+                beforeExport=".onBeforeExportSmartTable"
                 useVariantManagement="false"
                 useTablePersonalisation="true"
                 enableAutoBinding="true"

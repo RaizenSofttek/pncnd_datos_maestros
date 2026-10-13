@@ -41,6 +41,7 @@
                 entitySet="PNCND_CLIENTES"
                 tableType="ResponsiveTable"
                 enableExport="true"
+                beforeExport=".onBeforeExportSmartTable"
                 useVariantManagement="false"
                 useTablePersonalisation="true"
                 enableAutoBinding="true"

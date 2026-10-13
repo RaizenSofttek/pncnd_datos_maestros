@@ -36,6 +36,7 @@
                 entitySet="PNCND_COD_CONCEPTO"
                 tableType="ResponsiveTable"
                 enableExport="true"
+                beforeExport=".onBeforeExportSmartTable"
                 useVariantManagement="false"
                 useTablePersonalisation="true"
                 enableAutoBinding="true"

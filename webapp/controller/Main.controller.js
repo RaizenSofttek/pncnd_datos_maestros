@@ -26,6 +26,11 @@ sap.ui.define([
              AprobXPropuestaAudit, Aprobadores) {
     "use strict";
 
+    // Campos que el backend expone como fecha real (Timestamp / Date). El resto
+    // de los "fecha_*" están anotados como Edm.String y ya llegan formateados.
+    var CAMPOS_FECHA_HORA = ["fecha_modificacion"];
+    var CAMPOS_FECHA      = ["fecha_inicio", "fecha_fin"];
+
     // Mapa de fragments por entidad
     var mFragmentos = {
         "PNCND_APROB_X_OF_VENTAS": {
@@ -461,6 +466,35 @@ sap.ui.define([
             var p = function (n) { return String(n).padStart(2, "0"); };
             return p(d.getDate()) + "/" + p(d.getMonth() + 1) + "/" + d.getFullYear()
                 + " - " + p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
+        },
+
+        // ════════════════════════════════════════════════════════════════════
+        // EXPORT A EXCEL
+        // ════════════════════════════════════════════════════════════════════
+        // El export arma el archivo con los valores crudos del modelo, sin pasar
+        // por los formatters de las celdas: sin esto las fechas salen como
+        // "/Date(1785952453096+0000)/". Declarar el tipo hace que Excel reciba
+        // una fecha real, ordenable y filtrable, en vez de texto.
+        //
+        // Solo se tipan los campos que viajan como fecha. fecha_oper y fecha_mod
+        // están anotados como Edm.String en el backend: ya llegan formateados y
+        // tiparlos los rompería.
+        onBeforeExportSmartTable: function (oEvent) {
+            var mSettings = oEvent.getParameter("exportSettings");
+            var aColumns  = mSettings && mSettings.workbook && mSettings.workbook.columns;
+            if (!aColumns) { return; }
+
+            aColumns.forEach(function (oCol) {
+                if (CAMPOS_FECHA_HORA.indexOf(oCol.property) !== -1) {
+                    oCol.type   = "DateTime";
+                    oCol.format = "dd/mm/yyyy hh:mm:ss";
+                    oCol.utc    = false;
+                } else if (CAMPOS_FECHA.indexOf(oCol.property) !== -1) {
+                    oCol.type   = "Date";
+                    oCol.format = "dd/mm/yyyy";
+                    oCol.utc    = false;
+                }
+            });
         },
 
         // ════════════════════════════════════════════════════════════════════

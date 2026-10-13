@@ -38,6 +38,7 @@
                 entitySet="PNCND_APROB_X_FUNCION"
                 tableType="ResponsiveTable"
                 enableExport="true"
+                beforeExport=".onBeforeExportSmartTable"
                 useVariantManagement="false"
                 useTablePersonalisation="true"
                 enableAutoBinding="true"
