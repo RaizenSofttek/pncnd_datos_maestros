@@ -17,13 +17,14 @@ sap.ui.define([
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_tipo_doc_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_propuesta_audit",
-    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprobadores"
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprobadores",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprobadores_audit"
 ], function (Controller, MessageToast, Fragment, Filter, FilterOperator,
              AprobFuncion, AprobOfVentas, Clientes,
              AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit,
              RelConcMoa, RelConcTipoDoc, CodConcepto,
              RelConcMoaAudit, RelConcTipoDocAudit, CodConceptoAudit,
-             AprobXPropuestaAudit, Aprobadores) {
+             AprobXPropuestaAudit, Aprobadores, AprobadoresAudit) {
     "use strict";
 
     // Campos que el backend expone como fecha real (Timestamp / Date). El resto
@@ -98,6 +99,11 @@ sap.ui.define([
             sfbId: "sfbAprobadores",
             stId : "stAprobadores"
         },
+        "PNCND_APROBADORES_AUDIT": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_aprobadores_audit",
+            sfbId: "sfbAprobadoresAudit",
+            stId : "stAprobadoresAudit"
+        },
         "PNCND_APROB_X_PROPUESTA_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_aprob_x_propuesta_audit",
             sfbId: "sfbAprobXPropuestaAudit",
@@ -123,6 +129,7 @@ sap.ui.define([
             this._codConceptoAudit  = new CodConceptoAudit(this);
             this._aprobXPropuestaAudit = new AprobXPropuestaAudit(this);
             this._aprobadores       = new Aprobadores(this);
+            this._aprobadoresAudit  = new AprobadoresAudit(this);
             this._activeUtil     = null;
             this._sCurrentEntity = null;
             this._nFragLoad      = 0;
@@ -436,6 +443,11 @@ sap.ui.define([
         // DELEGATES — Aprobadores
         // ════════════════════════════════════════════════════════════════════
         onSearchAprobadores             : function (e) { this._aprobadores.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — AprobadoresAudit (solo lectura)
+        // ════════════════════════════════════════════════════════════════════
+        onSearchAprobadoresAudit        : function (e) { this._aprobadoresAudit.onSearch(e); },
         onEditarAprobadores             : function (e) { this._aprobadores.onEditar(e); },
         onEliminarAprobadores           : function (e) { this._aprobadores.onEliminar(e); },
         onConfirmarEditarAprobadores    : function ()  { this._aprobadores.onConfirmarEditar(); },
