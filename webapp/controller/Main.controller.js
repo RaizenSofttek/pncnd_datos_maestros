@@ -16,13 +16,14 @@ sap.ui.define([
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_moa_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_rel_conc_tipo_doc_audit",
     "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_cod_concepto_audit",
-    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_propuesta_audit"
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprob_x_propuesta_audit",
+    "zpncnd/datos/maestros/pncnddatosmaestros/util/pncnd_aprobadores"
 ], function (Controller, MessageToast, Fragment, Filter, FilterOperator,
              AprobFuncion, AprobOfVentas, Clientes,
              AprobOfVentasAudit, AprobFuncionAudit, ClientesAudit,
              RelConcMoa, RelConcTipoDoc, CodConcepto,
              RelConcMoaAudit, RelConcTipoDocAudit, CodConceptoAudit,
-             AprobXPropuestaAudit) {
+             AprobXPropuestaAudit, Aprobadores) {
     "use strict";
 
     // Mapa de fragments por entidad
@@ -87,6 +88,11 @@ sap.ui.define([
             sfbId: "sfbCodConceptoAudit",
             stId : "stCodConceptoAudit"
         },
+        "PNCND_APROBADORES": {
+            name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Aprobadores",
+            sfbId: "sfbAprobadores",
+            stId : "stAprobadores"
+        },
         "PNCND_APROB_X_PROPUESTA_AUDIT": {
             name : "zpncnd.datos.maestros.pncnddatosmaestros.view.fragment.Pncnd_aprob_x_propuesta_audit",
             sfbId: "sfbAprobXPropuestaAudit",
@@ -111,6 +117,7 @@ sap.ui.define([
             this._relConcTipoDocAudit = new RelConcTipoDocAudit(this);
             this._codConceptoAudit  = new CodConceptoAudit(this);
             this._aprobXPropuestaAudit = new AprobXPropuestaAudit(this);
+            this._aprobadores       = new Aprobadores(this);
             this._activeUtil     = null;
             this._sCurrentEntity = null;
             this._nFragLoad      = 0;
@@ -240,7 +247,8 @@ sap.ui.define([
         _detectarEntidad: function (aHeaders) {
             var sDetectado = null;
             [this._funcion, this._ofventas, this._clientes,
-             this._relConcMoa, this._relConcTipoDoc, this._codConcepto].forEach(function (oUtil) {
+             this._relConcMoa, this._relConcTipoDoc, this._codConcepto,
+             this._aprobadores].forEach(function (oUtil) {
                 var aEsp = oUtil.getColsCarga().map(function (o) { return o.header; });
                 if (aEsp.length === aHeaders.length &&
                     aEsp.every(function (h, i) { return h === aHeaders[i]; })) {
@@ -418,6 +426,18 @@ sap.ui.define([
         // DELEGATES — AprobXPropuestaAudit (solo lectura)
         // ════════════════════════════════════════════════════════════════════
         onSearchAprobXPropuestaAudit : function (e) { this._aprobXPropuestaAudit.onSearch(e); },
+
+        // ════════════════════════════════════════════════════════════════════
+        // DELEGATES — Aprobadores
+        // ════════════════════════════════════════════════════════════════════
+        onSearchAprobadores             : function (e) { this._aprobadores.onSearch(e); },
+        onEditarAprobadores             : function (e) { this._aprobadores.onEditar(e); },
+        onEliminarAprobadores           : function (e) { this._aprobadores.onEliminar(e); },
+        onConfirmarEditarAprobadores    : function ()  { this._aprobadores.onConfirmarEditar(); },
+        onCancelarEditarAprobadores     : function ()  { this._aprobadores.onCancelarEditar(); },
+        onModMasivaAprobadores          : function ()  { this._aprobadores.onModMasiva(); },
+        onDescargarTemplateAprobadores  : function ()  { this._aprobadores.onDescargarTemplate(); },
+        onCargaMasivaAprobadores        : function ()  { this._aprobadores.onCargaMasiva(); },
 
         // ════════════════════════════════════════════════════════════════════
         // DELEGATES — CodConcepto

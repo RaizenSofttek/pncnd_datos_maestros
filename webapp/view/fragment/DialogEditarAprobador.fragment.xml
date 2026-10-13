@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout.form">
+
+    <Dialog id="dlgEditarAprobador" title="Editar Aprobador" contentWidth="420px">
+        <content>
+            <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                labelSpanL="4" labelSpanM="4" emptySpanL="0" columnsL="1" columnsM="1">
+                <l:content>
+                    <Label text="Mail"/>
+                    <Input id="eAprobMail" enabled="false"/>
+                    <Label text="Tipo Aprobador"/>
+                    <Input id="eAprobTipo" maxLength="2"/>
+                    <Label text="Nombre"/>
+                    <Input id="eAprobNombre" maxLength="100"/>
+                </l:content>
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Confirmar" type="Emphasized" press=".onConfirmarEditarAprobadores"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancelar" press=".onCancelarEditarAprobadores"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

@@ -1,0 +1,95 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:comp="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar">
+
+    <VBox width="100%" class="pncndFragContent">
+
+        <sfb:SmartFilterBar
+            id="sfbAprobadores"
+            entitySet="PNCND_APROBADORES"
+            showGoOnFB="true"
+            showRestoreOnFB="true"
+            showFilterConfiguration="false">
+            <sfb:controlConfiguration>
+                <sfb:ControlConfiguration key="mail"          label="Mail"           visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="id_tipo_aprob" label="Tipo Aprobador" visibleInAdvancedArea="true"/>
+                <sfb:ControlConfiguration key="nombre"        label="Nombre"         visibleInAdvancedArea="true"/>
+            </sfb:controlConfiguration>
+        </sfb:SmartFilterBar>
+
+        <SearchField id="sfSearchAprobadores" width="100%" liveChange=".onSearchAprobadores"
+            placeholder="Buscar en todos los campos..." class="sapUiSmallMarginBottom"/>
+
+        <OverflowToolbar design="Transparent">
+            <ToolbarSpacer/>
+            <Button text="Mod. Masiva"  icon="sap-icon://edit"     press=".onModMasivaAprobadores"/>
+            <ToolbarSeparator/>
+            <Button text="Template"     icon="sap-icon://download" press=".onDescargarTemplateAprobadores"/>
+            <Button text="Carga Masiva" icon="sap-icon://upload"   press=".onCargaMasivaAprobadores"/>
+        </OverflowToolbar>
+
+        <VBox class="pncndTableScroll">
+
+            <comp:SmartTable
+                id="stAprobadores"
+                entitySet="PNCND_APROBADORES"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                enableAutoBinding="true"
+                showRowCount="true"
+                header="Aprobadores">
+
+                <Table id="_tblAprobadores" fixedLayout="false" mode="MultiSelect"
+                       sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="40">
+                    <columns>
+                        <Column width="24rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"mail","leadingProperty":"mail","sortProperty":"mail","filterProperty":"mail","width":"24rem"}'/>
+                            </customData>
+                            <Text text="Mail"/>
+                        </Column>
+                        <Column width="12rem">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"id_tipo_aprob","leadingProperty":"id_tipo_aprob","sortProperty":"id_tipo_aprob","filterProperty":"id_tipo_aprob","width":"12rem"}'/>
+                            </customData>
+                            <Text text="Tipo Aprobador"/>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"nombre","leadingProperty":"nombre","sortProperty":"nombre","filterProperty":"nombre"}'/>
+                            </customData>
+                            <Text text="Nombre"/>
+                        </Column>
+                        <Column width="8rem" hAlign="Center">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey":"acciones","sortProperty":null,"filterProperty":null}'/>
+                            </customData>
+                            <Text text="Acciones"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{mail}"          wrapping="false"/>
+                                <Text text="{id_tipo_aprob}" wrapping="false"/>
+                                <Text text="{nombre}"        wrapping="false"/>
+                                <HBox justifyContent="Center">
+                                    <Button icon="sap-icon://edit"   press=".onEditarAprobadores"   class="sapUiTinyMarginEnd"/>
+                                    <Button icon="sap-icon://delete" press=".onEliminarAprobadores" type="Reject"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </comp:SmartTable>
+
+        </VBox>
+
+    </VBox>
+
+</core:FragmentDefinition>
