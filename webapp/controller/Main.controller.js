@@ -151,24 +151,35 @@ sap.ui.define([
         },
 
         _checkRoles: function () {
-            var that = this;
-            var oModelUser = this.getOwnerComponent().getModel("modelUser");
-            var oData = oModelUser.getData();
-            var sData = JSON.stringify(oData);
-            var bTieneRol = sData.indexOf("PNCND_TABLAS_AUDITORIAS") !== -1;
+            var that  = this;
+            var sData = JSON.stringify(this.getOwnerComponent().getModel("modelUser").getData());
 
-            if (!bTieneRol) {
+            var aFiltros = [];
+
+            if (sData.indexOf("PNCND_TABLAS_AUDITORIAS") === -1) {
+                aFiltros.push(new Filter("nombre", FilterOperator.NotContains, "_AUDIT"));
+            }
+
+            // Alcanza con el prefijo: tapa PNCND_APROBADORES y PNCND_APROBADORES_AUDIT
+            // de una, y no alcanza a las PNCND_APROB_X_*, que son otras tablas.
+            if (sData.indexOf("PNCND_TABLA_APROBADORES") === -1) {
+                aFiltros.push(new Filter("nombre", FilterOperator.NotContains, "PNCND_APROBADORES"));
+            }
+
+            if (!aFiltros.length) { return; }
+
+            // El binding puede no estar listo todavía al momento de resolver los roles
+            var fnAplicar = function () {
                 var oSelect  = that.byId("selTabla");
                 var oBinding = oSelect ? oSelect.getBinding("items") : null;
                 if (oBinding) {
-                    oBinding.filter([new Filter("nombre", FilterOperator.NotContains, "_AUDIT")]);
-                } else {
-                    setTimeout(function () {
-                        var oB2 = that.byId("selTabla") && that.byId("selTabla").getBinding("items");
-                        if (oB2) { oB2.filter([new Filter("nombre", FilterOperator.NotContains, "_AUDIT")]); }
-                    }, 1000);
+                    oBinding.filter(aFiltros);
+                    return true;
                 }
-            }
+                return false;
+            };
+
+            if (!fnAplicar()) { setTimeout(fnAplicar, 1000); }
         },
 
         // ── SELECTOR DE TABLA ────────────────────────────────────────────────
