@@ -160,10 +160,11 @@ sap.ui.define([
                 aFiltros.push(new Filter("nombre", FilterOperator.NotContains, "_AUDIT"));
             }
 
-            // Alcanza con el prefijo: tapa PNCND_APROBADORES y PNCND_APROBADORES_AUDIT
-            // de una, y no alcanza a las PNCND_APROB_X_*, que son otras tablas.
+            // Exclusión exacta y no por prefijo: PNCND_APROBADORES_AUDIT depende del
+            // rol de auditorías, no de este, para que quien solo audite vea todas
+            // las _AUDIT sin excepción.
             if (sData.indexOf("PNCND_TABLA_APROBADORES") === -1) {
-                aFiltros.push(new Filter("nombre", FilterOperator.NotContains, "PNCND_APROBADORES"));
+                aFiltros.push(new Filter("nombre", FilterOperator.NE, "PNCND_APROBADORES"));
             }
 
             if (!aFiltros.length) { return; }
