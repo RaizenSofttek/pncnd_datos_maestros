@@ -152,10 +152,7 @@ sap.ui.define([
 
         _checkRoles: function () {
             var that  = this;
-            var oUser = this.getOwnerComponent().getModel("modelUser").getData();
-            var sData = JSON.stringify(oUser);
-
-            this._logRoles(oUser, sData);
+            var sData = JSON.stringify(this.getOwnerComponent().getModel("modelUser").getData());
 
             var aFiltros = [];
 
@@ -184,28 +181,6 @@ sap.ui.define([
             };
 
             if (!fnAplicar()) { setTimeout(fnAplicar, 1000); }
-        },
-
-        // DIAGNÓSTICO — quitar cuando no haga falta.
-        // Muestra en consola qué devuelve /user-api/attributes y cómo se resuelve
-        // cada rol, para poder contrastar lo que ve la app con lo que el usuario
-        // tiene asignado realmente.
-        _logRoles: function (oUser, sData) {
-            var ROLES = ["PNCND_TABLAS_AUDITORIAS", "PNCND_TABLA_APROBADORES"];
-
-            /* eslint-disable no-console */
-            console.group("[PNCND] Roles del usuario");
-            console.log("Usuario :", (oUser && (oUser.email || oUser.name)) || "(sin identificar)");
-
-            ROLES.forEach(function (sRol) {
-                console.log((sData.indexOf(sRol) !== -1 ? "SI -> " : "NO -> ") + sRol);
-            });
-
-            // El filtro busca el nombre del rol dentro del JSON completo, así que
-            // conviene ver la respuesta entera y no solo los campos esperados.
-            console.log("Respuesta de /user-api/attributes:", oUser);
-            console.groupEnd();
-            /* eslint-enable no-console */
         },
 
         // ── SELECTOR DE TABLA ────────────────────────────────────────────────
